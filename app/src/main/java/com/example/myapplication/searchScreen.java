@@ -32,7 +32,6 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
     Spinner kindOfTreatment,carCompany,businessCity;
     TextView textViewProfileButton;
     TextView profileBtn;
-    EditText editTextCity;
     Button searchButton;
 
     DatabaseReference mDatabase;
@@ -58,7 +57,7 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
         myAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         carCompany.setAdapter(myAdapter1);
 
-        editTextCity = (EditText) findViewById(R.id.CityToSearch);
+
 
         businessCity = (Spinner) findViewById(R.id.searchCitySpinner);
         ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.Cities));
@@ -94,7 +93,6 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
     private void SearchTreatment() {
         String KindOfTreat = kindOfTreatment.getSelectedItem().toString().trim();
         String CarCompany = carCompany.getSelectedItem().toString().trim();
-        String address = editTextCity.getText().toString().trim();
         String searchCitySpinner = businessCity.getSelectedItem().toString().trim();
 
         ArrayList<businessUser> listBusiness = new ArrayList<businessUser>();

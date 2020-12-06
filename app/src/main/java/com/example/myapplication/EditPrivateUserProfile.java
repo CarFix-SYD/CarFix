@@ -115,17 +115,21 @@ public class EditPrivateUserProfile extends AppCompatActivity implements View.On
                     values.put("CarNumber", editCarNumber.getText().toString().trim());
                     values.put("CarYear", editCarYear.getText().toString().trim());
                     values.put("carCompany", CarType.getSelectedItem().toString().trim());
-                    userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                            Intent intent = new Intent(EditPrivateUserProfile.this,ProfileScreenPrivate.class);
-                            Toast.makeText(EditPrivateUserProfile.this,"Profile updated",Toast.LENGTH_LONG).show();
+                    if (!values.isEmpty()) {
+                        user.updateEmail(editEmail.getText().toString().trim());
+                        user.updatePassword(editPassword.getText().toString().trim());
+                        userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                Intent intent = new Intent(EditPrivateUserProfile.this, ProfileScreenPrivate.class);
+                                Toast.makeText(EditPrivateUserProfile.this, "Profile updated", Toast.LENGTH_LONG).show();
 
-                            startActivity(intent);
-                        }
-                    });
-                }else{
-                    Toast.makeText(EditPrivateUserProfile.this,"Cant Save new data",Toast.LENGTH_LONG).show();
+                                startActivity(intent);
+                            }
+                        });
+                    } else {
+                        Toast.makeText(EditPrivateUserProfile.this, "Cant Save new data", Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }

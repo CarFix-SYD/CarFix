@@ -145,6 +145,8 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
                     values.put("businessName", editBusinessName.getText().toString().trim());
                     values.put("carsToTreat",finalListOfCarBusiness);
                     if(!values.isEmpty()) {
+                        user.updateEmail(editEmail.getText().toString().trim());
+                        user.updatePassword(editbusinessPassword.getText().toString().trim());
                         userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
