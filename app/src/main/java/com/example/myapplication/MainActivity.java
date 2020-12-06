@@ -17,10 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -71,9 +73,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void userLogin() {
+
+        //convert Text lines to Strings
         String userName = editTextEmail.getText().toString().trim();
         String password = EditTextPassword.getText().toString().trim();
 
+        /**
+        * checks for the user login validation of the email and password
+        */
         if(userName.isEmpty()){
             editTextEmail.setError("Please enter E-mail");
             editTextEmail.requestFocus();
@@ -92,20 +99,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        // Progress bar visible
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(userName,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    //direct to user profile
-                    startActivity(new Intent(MainActivity.this,ProfileScreen.class));
-                }else{
-                    Toast.makeText(MainActivity.this, "Failed to login",Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
+                if (task.isSuccessful()) {
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    String RegisterdID = currentUser.getUid();
 
+                    /**
+                     * the function is separated to two parts because of the Firebase structure.
+                     * this function is for the business user login.
+                     */
+                    DatabaseReference jloginDatabaseBusiness = FirebaseDatabase.getInstance().getReference("/BusinessUsers/").child(RegisterdID);
+                    jloginDatabaseBusiness.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                String userType = snapshot.child("type").getValue().toString();
+                                if (userType.equals("BusinessUser")) {
+                                    Intent intentBusiness = new Intent(MainActivity.this, ProfileScreenBusiness.class);
+                                    intentBusiness.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intentBusiness);
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                    /**
+                     * this Function is for private user login using reference and add value listener.
+                     */
+                    DatabaseReference jloginDatabasePrivate = FirebaseDatabase.getInstance().getReference("/PrivateUsers/").child(RegisterdID);
+                    jloginDatabasePrivate.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                String userType = snapshot.child("type").getValue().toString();
+                                if (userType.equals("PrivateUser")) {
+                                    Intent intentPrivate = new Intent(MainActivity.this, ProfileScreenPrivate.class);
+                                    intentPrivate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intentPrivate);
+
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }else{
+                    Toast.makeText(MainActivity.this,"Failed to login",Toast.LENGTH_LONG).show();;
+                    progressBar.setVisibility(View.GONE);
                 }
+
             }
-        });
+            });
     }
 }

@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string-array name="CarTypes">
+        <item>Audi</item>
+        <item>BMW</item>
+        <item>Opel</item>
+        <item>Infinity</item>
+        <item>isuzu</item>
+        <item>Alpha romeo</item>
+        <item>Hyundai</item>
+        <item>Kia</item>
+        <item>Subaru</item>
+    </string-array>
+
+    <string-array name="CarTypesForBusiness">
+        <item>Audi</item>
+        <item>BMW</item>
+        <item>Opel</item>
+        <item>Infinity</item>
+        <item>isuzu</item>
+        <item>Alpha romeo</item>
+        <item>Hyundai</item>
+        <item>Kia</item>
+        <item>Subaru</item>
+    </string-array>
+
+    <string-array name="KindOfBusiness">
+        <item>Garage</item>
+        <item>Pancheria</item>
+        <item>Electricity</item>
+    </string-array>
+
+    <string-array name="Cities">
+        <item>Tel aviv</item>
+        <item>Ramat gan</item>
+        <item>Modiin</item>
+        <item>Hertzliya</item>
+        <item>Beer Sheva</item>
+    </string-array>
 </resources>

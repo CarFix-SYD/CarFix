@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".searchScreen">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="343dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Welcome to CarFix"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/UserProfile"
+        android:layout_width="104dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/kindOfTreat"
+        android:layout_width="341dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Spinner
+        android:id="@+id/carCompany"
+        android:layout_width="341dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kindOfTreat" />
+
+    <EditText
+        android:id="@+id/CityToSearch"
+        android:layout_width="341dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Enter city"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carCompany" />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="341dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="100dp"
+        android:text="Search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CityToSearch" />
+
+    <Spinner
+        android:id="@+id/searchCitySpinner"
+        android:layout_width="341dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CityToSearch"
+        app:layout_constraintVertical_bias="0.433" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

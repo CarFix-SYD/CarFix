@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditBusinessProfile">
+
+    <TextView
+        android:id="@+id/editBusiness"
+        android:layout_width="70dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="96dp"
+        android:text="Email:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/editBusinessP"
+        android:layout_width="95dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Password:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBusiness" />
+
+    <TextView
+        android:id="@+id/editBusinessBN"
+        android:layout_width="153dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="Business name:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessP" />
+
+    <TextView
+        android:id="@+id/editBusinessKind"
+        android:layout_width="77dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="36dp"
+        android:text="Kind:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editBusinessCarsToTreat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessBN"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/editBusinessCity"
+        android:layout_width="137dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="City:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessCarsToTreat" />
+
+    <TextView
+        android:id="@+id/editBusinessA"
+        android:layout_width="137dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="52dp"
+        android:text="Address:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editBusinessPas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessCity"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/editBusinessPas"
+        android:layout_width="137dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="76dp"
+        android:text="Phone:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editBusinessEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
+        app:layout_constraintStart_toEndOf="@+id/editBusiness"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editBusinessPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessP"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessEmail" />
+
+    <EditText
+        android:id="@+id/editBusinessBusinessName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessBN"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessPassword" />
+
+    <EditText
+        android:id="@+id/editBusinessAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/editBusinessPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessA" />
+
+    <EditText
+        android:id="@+id/editBusinessPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="64dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessPas" />
+
+    <Spinner
+        android:id="@+id/spinerBusinessKind"
+        android:layout_width="272dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessKind"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessBusinessName" />
+
+    <Button
+        android:id="@+id/editBusinessCarsToTreat"
+        android:layout_width="357dp"
+        android:layout_height="38dp"
+        android:text="cars to treat"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerBusinessCity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinerBusinessKind" />
+
+    <Spinner
+        android:id="@+id/spinnerBusinessCity"
+        android:layout_width="209dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/editBusinessAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessCity" />
+
+    <Button
+        android:id="@+id/editBusinessProfileSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
