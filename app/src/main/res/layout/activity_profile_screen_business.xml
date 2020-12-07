@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/HelloBusinessUser"
-        android:layout_width="140dp"
-        android:layout_height="33dp"
+        android:layout_width="292dp"
+        android:layout_height="32dp"
         android:layout_marginTop="68dp"
         android:text="TextView"
         android:textAlignment="center"

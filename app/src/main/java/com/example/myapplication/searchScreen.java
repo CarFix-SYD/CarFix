@@ -97,7 +97,7 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
 
         ArrayList<businessUser> listBusiness = new ArrayList<businessUser>();
         listBusiness.clear();
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             //onDataChange is Asynchronous so all the methods as to be inside otherwise
             //it will not get the data outside the function
             @Override
@@ -142,7 +142,7 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean doesContain(String searchCarsToTreat, String carCompany) {
-        String [] List = searchCarsToTreat.split(",");
+        String [] List = searchCarsToTreat.split(", ");
         for (String s : List){
             if(s.equals(carCompany))
                 return true;

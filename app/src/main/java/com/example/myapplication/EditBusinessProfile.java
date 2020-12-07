@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -145,8 +147,26 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
                     values.put("businessName", editBusinessName.getText().toString().trim());
                     values.put("carsToTreat",finalListOfCarBusiness);
                     if(!values.isEmpty()) {
-                        user.updateEmail(editEmail.getText().toString().trim());
-                        user.updatePassword(editbusinessPassword.getText().toString().trim());
+                        user.updateEmail(editEmail.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    Toast.makeText(EditBusinessProfile.this, editEmail.getText().toString().trim(), Toast.LENGTH_LONG).show();
+                                }else {
+                                    Toast.makeText(EditBusinessProfile.this, "dont change email", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                        user.updatePassword(editbusinessPassword.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    Toast.makeText(EditBusinessProfile.this, editbusinessPassword.getText().toString().trim(), Toast.LENGTH_LONG).show();
+                                }else {
+                                    Toast.makeText(EditBusinessProfile.this, "dont change password", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                         userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {

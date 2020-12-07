@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,14 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class businessAdapter extends BaseAdapter {
-    Activity context;
+    private Activity context;
     ArrayList<businessUser> business;
     private static LayoutInflater inflater = null;
 
@@ -58,6 +60,13 @@ public class businessAdapter extends BaseAdapter {
 
 
         Button moveToSelected = (Button) itemView.findViewById(R.id.buttonToBusiness);
+        moveToSelected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,EditBusinessProfile.class);
+                context.startActivity(intent);
+            }
+        });
 
        return itemView;
     }
