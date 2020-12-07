@@ -63,7 +63,7 @@ public class businessAdapter extends BaseAdapter {
         moveToSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,EditBusinessProfile.class);
+                Intent intent = new Intent(context,BusinessProfile.class);
                 context.startActivity(intent);
             }
         });
