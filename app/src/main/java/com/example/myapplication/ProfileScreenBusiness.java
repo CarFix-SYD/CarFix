@@ -54,7 +54,7 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
         Path = FirebaseDatabase.getInstance().getReference("/BusinessUsers/" + RegisterdID).toString();
 
         helloUser = (TextView) findViewById(R.id.HelloBusinessUser);
-        helloUser.setText("Hello " + currentUser.getEmail().split("@")[0]);
+        helloUser.setText("Hello " +currentUser.getEmail().split("@")[0].trim());
 
         editProfile = (Button) findViewById(R.id.editBusinessUser);
         editProfile.setOnClickListener(this);

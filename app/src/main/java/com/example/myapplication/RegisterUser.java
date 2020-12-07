@@ -131,11 +131,13 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         switch(v.getId()){
             case R.id.registerbutton://There is 2 kinds of Users and 2 kinds of regiseters
-                if(WhichUser == true)
+                if(WhichUser == true) {
                     registerPrivateUser();
-                else
+                    break;
+                }else {
                     registerBusinessUser();
-                break;
+                    break;
+                }
             case R.id.PrivateUser:
                 setPrivateUserVisible();
                 break;
