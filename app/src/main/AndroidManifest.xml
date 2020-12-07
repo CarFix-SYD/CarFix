@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".EditBusinessProfile"></activity>
+        <activity android:name=".BusinessProfile"></activity>
         <activity android:name=".EditPrivateUserProfile" />
         <activity android:name=".ProfileScreenBusiness" />
         <activity android:name=".searchResults" />

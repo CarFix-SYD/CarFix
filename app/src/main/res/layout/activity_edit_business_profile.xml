@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".EditBusinessProfile">
 
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints"></ImageView>
+
+    <Button
+        android:id="@+id/buttonLoadPicture"
+        android:layout_width="154dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:text="upload picture"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="241dp"
+        tools:layout_editor_absoluteY="16dp"></Button>
+
     <TextView
         android:id="@+id/editBusiness"
         android:layout_width="70dp"

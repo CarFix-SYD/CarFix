@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class EditBusinessProfile extends AppCompatActivity implements View.OnClickListener {
 
-    public EditText editEmail,editBusinessName,editbusinessPassword,editBusinessAddress,editBusinessPhone;
+    public EditText editEmail,editBusinessName,editBusinessAddress,editBusinessPhone;
     private Spinner kindOfBusiness,businessCity;
     public Button saveChanges;
 
@@ -54,7 +54,6 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
 
         editBusinessName = (EditText) findViewById(R.id.editBusinessBusinessName);
         editEmail = (EditText) findViewById(R.id.editBusinessEmail);
-        editbusinessPassword = (EditText) findViewById(R.id.editBusinessPassword);
 
         kindOfBusiness = (Spinner) findViewById(R.id.spinerBusinessKind);
         ArrayAdapter<String> myAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.KindOfBusiness));
@@ -79,13 +78,11 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
         DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userRef = rootref.child("BusinessUsers");
 
-
         userRef.child(currentuid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
                     String email = snapshot.child("Email").getValue(String.class);
-                    String Password = snapshot.child("Password").getValue(String.class);
                     String kindOfBusiness = snapshot.child("KindOfBusiness").getValue(String.class);
                     String City = snapshot.child("City").getValue(String.class);
                     String address = snapshot.child("address").getValue(String.class);
@@ -95,7 +92,6 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
 
                     editEmail.setText(email);
                     editBusinessName.setText(businessName);
-                    editbusinessPassword.setText(Password);
                     editBusinessAddress.setText(address);
                     editBusinessPhone.setText(businessphone);
                     finalListOfCarBusiness = carsToTreat;
@@ -137,7 +133,6 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
 
                     Map<String, Object> values = new HashMap<>();
                     values.put("Email", editEmail.getText().toString().trim());
-                    values.put("Password", editbusinessPassword.getText().toString().trim());
                     values.put("City", businessCity.getSelectedItem().toString().trim());
                     values.put("KindOfBusiness", kindOfBusiness.getSelectedItem().toString().trim());
                     values.put("PhoneNumber", editBusinessPhone.getText().toString().trim());
@@ -146,7 +141,6 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
                     values.put("carsToTreat",finalListOfCarBusiness);
                     if(!values.isEmpty()) {
                         user.updateEmail(editEmail.getText().toString().trim());
-                        user.updatePassword(editbusinessPassword.getText().toString().trim());
                         userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
