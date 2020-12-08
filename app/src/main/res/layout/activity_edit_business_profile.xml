@@ -11,207 +11,213 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:ignore="MissingConstraints"></ImageView>
+        tools:ignore="MissingConstraints"
+        android:contentDescription="TODO"></ImageView>
 
     <Button
         android:id="@+id/buttonLoadPicture"
-        android:layout_width="154dp"
-        android:layout_height="56dp"
+        android:layout_width="75dp"
+        android:layout_height="39dp"
         android:layout_gravity="center"
+        android:layout_marginTop="64dp"
         android:layout_weight="0"
-        android:text="upload picture"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="241dp"
-        tools:layout_editor_absoluteY="16dp"></Button>
+        android:text="@string/upload_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"></Button>
 
     <TextView
         android:id="@+id/editBusiness"
         android:layout_width="70dp"
         android:layout_height="34dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="96dp"
-        android:text="Email:"
+        android:text="@string/email"
         android:textAlignment="textStart"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/editBusinessP"
-        android:layout_width="95dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="Password:"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBusiness" />
+        app:layout_constraintBottom_toBottomOf="@+id/editBusinessProfileSave"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessCarsToTreat"
+        app:layout_constraintVertical_bias="0.264"
+        tools:layout_editor_absoluteX="23dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/editBusinessBN"
-        android:layout_width="153dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:text="Business name:"
+        android:layout_width="130dp"
+        android:layout_height="31dp"
+        android:text="@string/business_name"
         android:textAlignment="textStart"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBusinessP" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoadPicture"
+        app:layout_constraintVertical_bias="0.12" />
 
     <TextView
         android:id="@+id/editBusinessKind"
-        android:layout_width="77dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="36dp"
-        android:text="Kind:"
+        android:layout_width="69dp"
+        android:layout_height="21dp"
+        android:text="@string/kind"
         android:textAlignment="textStart"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editBusinessCarsToTreat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerBusinessCity"
+        app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBusinessBN"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoadPicture"
+        app:layout_constraintVertical_bias="0.268" />
 
     <TextView
         android:id="@+id/editBusinessCity"
         android:layout_width="137dp"
         android:layout_height="26dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="8dp"
         android:text="City:"
         android:textAlignment="textStart"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editBusinessA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBusinessCarsToTreat" />
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessKind"
+        app:layout_constraintVertical_bias="0.481" />
 
     <TextView
         android:id="@+id/editBusinessA"
         android:layout_width="137dp"
         android:layout_height="26dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="52dp"
         android:text="Address:"
         android:textAlignment="textStart"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editBusinessPas"
+        app:layout_constraintBottom_toTopOf="@+id/editBusinessCarsToTreat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBusinessCity"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.939" />
 
     <TextView
         android:id="@+id/editBusinessPas"
         android:layout_width="137dp"
         android:layout_height="26dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="76dp"
-        android:text="Phone:"
+        android:layout_marginStart="24dp"
+        android:text="@string/phone"
         android:textAlignment="textStart"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBusiness"
+        app:layout_constraintVertical_bias="0.207" />
 
     <EditText
         android:id="@+id/editBusinessEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.792"
+        android:text="@string/name"
         app:layout_constraintStart_toEndOf="@+id/editBusiness"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessCarsToTreat"
+        android:autofillHints="" />
 
     <EditText
-        android:id="@+id/editBusinessPassword"
+        android:id="@+id/editBusinessName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/spinerBusinessKind"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
-        app:layout_constraintStart_toEndOf="@+id/editBusinessP"
-        app:layout_constraintTop_toBottomOf="@+id/editBusinessEmail" />
-
-    <EditText
-        android:id="@+id/editBusinessBusinessName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/editBusinessBN"
-        app:layout_constraintTop_toBottomOf="@+id/editBusinessPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoadPicture"
+        app:layout_constraintVertical_bias="1.0"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editBusinessAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginStart="40dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/editBusinessPhone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editBusinessA" />
+        app:layout_constraintBottom_toTopOf="@+id/editBusinessCarsToTreat"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessA"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoadPicture"
+        app:layout_constraintVertical_bias="0.92"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editBusinessPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="76dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
-        app:layout_constraintStart_toEndOf="@+id/editBusinessPas" />
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessPas"
+        app:layout_constraintTop_toBottomOf="@+id/editBusinessEmail"
+        app:layout_constraintVertical_bias="0.578" />
 
     <Spinner
         android:id="@+id/spinerBusinessKind"
-        android:layout_width="272dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="205dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.961"
         app:layout_constraintStart_toEndOf="@+id/editBusinessKind"
-        app:layout_constraintTop_toBottomOf="@+id/editBusinessBusinessName" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoadPicture" />
 
     <Button
         android:id="@+id/editBusinessCarsToTreat"
         android:layout_width="357dp"
         android:layout_height="38dp"
-        android:text="cars to treat"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerBusinessCity"
+        android:text="@string/cars_to_treat"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinerBusinessKind" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.658" />
 
     <Spinner
         android:id="@+id/spinnerBusinessCity"
-        android:layout_width="209dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/editBusinessAddress"
+        android:layout_width="203dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="76dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editBusinessAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editBusinessCity" />
+        app:layout_constraintHorizontal_bias="0.812"
+        app:layout_constraintStart_toEndOf="@+id/editBusinessCity"
+        app:layout_constraintTop_toBottomOf="@+id/spinerBusinessKind"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/editBusinessProfileSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="192dp"
+        android:layout_height="100dp"
+        tools:layout_editor_absoluteX="146dp"
+        tools:layout_editor_absoluteY="3dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

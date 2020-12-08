@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="city">City:</string>
+    <string name="address">Address:</string>
+    <string name="textview">TextView</string>
+    <string name="phone">Phone:</string>
+    <string name="kind">Kind:</string>
+    <string name="upload_picture">upload picture</string>
+    <string name="email">Email:</string>
+    <string name="cars_to_treat">cars to treat</string>
+    <string name="business_name">Business name:</string>
+    <string name="save">save</string>
+    <string name="name">Name</string>
     <string-array name="CarTypes">
         <item>Audi</item>
         <item>BMW</item>

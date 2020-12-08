@@ -219,7 +219,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
-                            businessUser Buser = new businessUser(email,businessName,password,KinfOfBusiness,carToTreat,address,city,phonenumber);
+                            businessUser Buser = new businessUser(email,businessName,password,KinfOfBusiness,carToTreat,address,city,phonenumber,FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                             FirebaseDatabase.getInstance().getReference("BusinessUsers").
                                     child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -227,6 +227,10 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
+                                       /* Buser.setID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        Toast.makeText(RegisterUser.this ,Buser.getID(),Toast.LENGTH_LONG).show();
+*/
+
                                         Toast.makeText(RegisterUser.this ,"User is registered successfully",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                         startActivity(new Intent(RegisterUser.this,MainActivity.class));

@@ -54,9 +54,8 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
         carsInBusinessButton.setOnClickListener(this);
         carsBussines = new ArrayList<Integer>();
 
-        editBusinessName = (EditText) findViewById(R.id.editBusinessBusinessName);
+        editBusinessName = (EditText) findViewById(R.id.editBusinessName);
         editEmail = (EditText) findViewById(R.id.editBusinessEmail);
-        editbusinessPassword = (EditText) findViewById(R.id.editBusinessPassword);
 
         kindOfBusiness = (Spinner) findViewById(R.id.spinerBusinessKind);
         ArrayAdapter<String> myAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.KindOfBusiness));

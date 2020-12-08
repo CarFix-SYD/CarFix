@@ -113,10 +113,10 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
                         String searchCarsToTreat = data.child("carsToTreat").getValue().toString().trim();
                         String searchbusinessCity = data.child("City").getValue().toString().trim();
                         String searchbusinessPhone = data.child("PhoneNumber").getValue().toString().trim();
-
+                        String searchbusinessID = data.child("ID").getValue().toString().trim();
                         if(searchKindOfBusiness.equals(KindOfTreat) && doesContain(searchCarsToTreat,CarCompany) && searchCitySpinner.equals(searchbusinessCity)) {
                             businessUser Buser;
-                            Buser = new businessUser(searchEmail, searchbusinessName, searchPassword, searchKindOfBusiness, searchCarsToTreat, searchAdrdess,searchbusinessCity,searchbusinessPhone);
+                            Buser = new businessUser(searchEmail, searchbusinessName, searchPassword, searchKindOfBusiness, searchCarsToTreat, searchAdrdess,searchbusinessCity,searchbusinessPhone, searchbusinessID);
                             listBusiness.add(Buser);
 
                         }
