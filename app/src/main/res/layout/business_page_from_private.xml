@@ -80,7 +80,7 @@
         android:id="@+id/textBN"
         android:layout_width="120dp"
         android:layout_height="72dp"
-        android:text="@string/textview"
+        android:text="textview"
         app:layout_constraintBottom_toTopOf="@+id/textAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.765"
@@ -93,7 +93,7 @@
         android:layout_width="129dp"
         android:layout_height="56dp"
         android:layout_marginBottom="24dp"
-        android:text="@string/textview"
+        android:text="textview"
         app:layout_constraintBottom_toTopOf="@+id/textEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.775"
@@ -104,7 +104,7 @@
         android:layout_width="137dp"
         android:layout_height="46dp"
         android:layout_marginBottom="216dp"
-        android:text="@string/textview"
+        android:text="textview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.851"
@@ -163,4 +163,5 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="6dp"
         tools:srcCompat="@tools:sample/avatars" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

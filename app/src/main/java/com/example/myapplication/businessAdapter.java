@@ -21,6 +21,7 @@ public class businessAdapter extends BaseAdapter {
     private Activity context;
     ArrayList<businessUser> business;
     private static LayoutInflater inflater = null;
+    String AdapterID = "";
 
     public businessAdapter(Activity context, ArrayList<businessUser> business) {
         this.context = context;
@@ -52,18 +53,24 @@ public class businessAdapter extends BaseAdapter {
        TextView textViewEmail = (TextView) itemView.findViewById(R.id.textViewEmail);
        TextView textViewAddress= (TextView) itemView.findViewById(R.id.businessAddressResult);
        TextView textViewPhone = (TextView) itemView.findViewById(R.id.businessPhone);
+       TextView textID = (TextView) itemView.findViewById(R.id.textView6);
        businessUser selected = business.get(position);
        textViewName.setText(selected.businessName);
        textViewEmail.setText(selected.Email);
        textViewAddress.setText(selected.City + ", " + selected.address);
        textViewPhone.setText(selected.PhoneNumber);
-
+        textID.setText(selected.ID);
+        AdapterID = selected.ID;
+        // Toast.makeText(context, selected.ID, Toast.LENGTH_SHORT).show();
 
         Button moveToSelected = (Button) itemView.findViewById(R.id.buttonToBusiness);
         moveToSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,BusinessProfile.class);
+                intent.putExtra("extraID", AdapterID);
+                // Toast.makeText(context, AdapterID, Toast.LENGTH_SHORT).show();
+
                 context.startActivity(intent);
             }
         });

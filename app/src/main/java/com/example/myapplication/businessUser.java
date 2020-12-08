@@ -14,8 +14,9 @@ public class businessUser implements Parcelable {
     public String City = "";
     public String PhoneNumber = "";
     public String type;
+    public String ID="";
 
-    public businessUser(String Email,String businessName,String Password,String KindOfBusiness,String carsToTreat,String address,String city,String Phone){
+    public businessUser(String Email,String businessName,String Password,String KindOfBusiness,String carsToTreat,String address,String city,String Phone, String id){
         this.Email = Email;
         this.businessName = businessName;
         this.Password = Password;
@@ -25,6 +26,7 @@ public class businessUser implements Parcelable {
         this.City = city;
         this.PhoneNumber = Phone;
         this.type = "BusinessUser";
+        this.ID = id;
 
     }
 
@@ -33,7 +35,7 @@ public class businessUser implements Parcelable {
 
     //////parcel using
     public businessUser(Parcel in){
-        String[]data = new String[9];
+        String[]data = new String[10];
         in.readStringArray(data);
         this.Email = data[0];
         this.businessName = data[1];
@@ -44,6 +46,8 @@ public class businessUser implements Parcelable {
         this.City = data[6];
         this.PhoneNumber = data[7];
         this.type = data[8];
+        this.ID = data[9];
+
     }
 
 
@@ -55,9 +59,8 @@ public class businessUser implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[]{this.Email,this.businessName,this.Password,this.KindOfBusiness,this.carsToTreat,this.address,this.City,this.PhoneNumber,this.type});
+        dest.writeStringArray(new String[]{this.Email,this.businessName,this.Password,this.KindOfBusiness,this.carsToTreat,this.address,this.City,this.PhoneNumber,this.type, this.ID});
     }
-
     public static final Parcelable.Creator<businessUser> CREATOR = new Creator<businessUser>() {
         @Override
         public businessUser createFromParcel(Parcel source) {
@@ -69,4 +72,11 @@ public class businessUser implements Parcelable {
             return new businessUser[size];
         }
     };
+    /*public String getID(){
+        return this.ID;
+    }
+
+    public  void setID(String ID){
+        this.ID = ID;
+    }*/
 }

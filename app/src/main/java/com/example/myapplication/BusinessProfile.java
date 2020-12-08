@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +36,9 @@ import java.util.Map;
 public class BusinessProfile extends AppCompatActivity implements View.OnClickListener {
 
     public EditText editEmail,editBusinessName,editBusinessAddress,editBusinessPhone;
-    public TextView email, businessName,businessAddress,businessPhone,businessKind;
-    private Spinner kindOfBusiness,businessCity;
+    public TextView email, businessName,businessAddress,businessPhone,businessKind, businessCity;
+    public String Semail, SbusinessName,SbusinessAddress,SbusinessPhone,SbusinessKind, SCity, ScarsToTreat;
+    public Spinner kindOfBusiness,businessCitySpinner;
     public Button saveChanges;
     private Button carsInBusinessButton;
     private String[] listOfCars;
@@ -44,44 +46,59 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
     private ArrayList<Integer> carsBussines;
     private boolean WhichUser = true;
     private String finalListOfCarBusiness ;
+    public String BusinessID;
+    public ImageView BImage, ImageFromPrivate;
+    public  Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_business_profile);
-        /**
-         * this part is for getting the data from firebase and show it
-         */
+        Intent intent = getIntent();
+        BusinessID = intent.getStringExtra("extraID");
+
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();
         DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userRef = rootref.child("BusinessUsers");
-        String objType = userRef.getKey().toString();
-        System.out.println(objType + "   jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-        if (objType.equals("BusinessUsers")){
-            isBusiness();
-        }
-        else if (objType.equals("PrivateUsers")){
-            isPrivate();
-        }
 
-        userRef.child(currentuid).addListenerForSingleValueEvent(new ValueEventListener() {
+
+        userRef.child(BusinessID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    String email = snapshot.child("Email").getValue(String.class);
-                    String kindOfBusiness = snapshot.child("KindOfBusiness").getValue(String.class);
-                    String City = snapshot.child("City").getValue(String.class);
-                    String address = snapshot.child("address").getValue(String.class);
-                    String businessName = snapshot.child("businessName").getValue(String.class);
-                    String carsToTreat = snapshot.child("carsToTreat").getValue(String.class);
-                    String businessphone = snapshot.child("PhoneNumber").getValue(String.class);
+                if (snapshot.exists()) {
 
-                    editEmail.setText(email);
-                    editBusinessName.setText(businessName);
-                    editBusinessAddress.setText(address);
-                    editBusinessPhone.setText(businessphone);
-                    finalListOfCarBusiness = carsToTreat;
+                    Semail = snapshot.child("Email").getValue().toString().trim();
+                    SbusinessKind = snapshot.child("KindOfBusiness").getValue(String.class);
+                    SCity = snapshot.child("City").getValue(String.class);
+                    SbusinessAddress = snapshot.child("address").getValue(String.class);
+                    SbusinessName = snapshot.child("businessName").getValue(String.class);
+                    ScarsToTreat = snapshot.child("carsToTreat").getValue(String.class);
+                    SbusinessPhone = snapshot.child("PhoneNumber").getValue(String.class);
+
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+        DatabaseReference jloginDatabaseBusiness = FirebaseDatabase.getInstance().getReference("/BusinessUsers/").child(currentuid);
+        jloginDatabaseBusiness.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String userType = snapshot.child("type").getValue().toString();
+                    if (userType.equals("BusinessUser")) {
+                        setContentView(R.layout.activity_edit_business_profile);
+                        isBusiness();
+                    } else {
+                        Toast.makeText(BusinessProfile.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -89,7 +106,27 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
 
+        DatabaseReference jloginDatabasePrivate = FirebaseDatabase.getInstance().getReference("/PrivateUsers/").child(currentuid);
+        jloginDatabasePrivate.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String userType = snapshot.child("type").getValue().toString();
+                    if (userType.equals("PrivateUser")) {
+                        setContentView(R.layout.business_page_from_private);
+                        isPrivate();
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
 
     }
@@ -103,8 +140,11 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
         carsInBusinessButton.setOnClickListener(this);
         carsBussines = new ArrayList<Integer>();
 
-        editBusinessName = (EditText) findViewById(R.id.editBusinessBusinessName);
+        editBusinessName = (EditText) findViewById(R.id.editBusinessName);
+        editBusinessName.setText(SbusinessName);
+
         editEmail = (EditText) findViewById(R.id.editBusinessEmail);
+        editEmail.setText(Semail);
 
         kindOfBusiness = (Spinner) findViewById(R.id.spinerBusinessKind);
         ArrayAdapter<String> myAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.KindOfBusiness));
@@ -113,23 +153,25 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
 
         //business address
         editBusinessAddress = (EditText) findViewById(R.id.editBusinessAddress);
+        editBusinessAddress.setText(SbusinessAddress);
 
-        businessCity = (Spinner) findViewById(R.id.spinnerBusinessCity);
+        businessCitySpinner = (Spinner) findViewById(R.id.spinnerBusinessCity);
         ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.Cities));
         myAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        businessCity.setAdapter(myAdapter2);
+        businessCitySpinner.setAdapter(myAdapter2);
 
         //business Phone number
         editBusinessPhone = (EditText) findViewById(R.id.editBusinessPhone);
+        editBusinessPhone.setText(SbusinessPhone);
 
         Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
+        BImage = (ImageView)findViewById(R.id.imageView2);
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
+            public void onClick(View v) {
+                Intent OpenGalleryIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, 1);
+                startActivityForResult(OpenGalleryIntent, 100);
             }
         });
 
@@ -137,39 +179,38 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            // String picturePath contains the path of selected Image
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK && data != null) {
+            selectedImage = data.getData();
+            BImage.setImageURI(selectedImage);
         }
     }
-//public TextView email, businessName,businessAddress,businessPhone,businessKind;
+    //public TextView email, businessName,businessAddress,businessPhone,businessKind;
     public void isPrivate() {
 
-        businessName = (TextView)findViewById(R.id.editBusinessBusinessName);
-        email = findViewById(R.id.editBusinessEmail);
+        ImageFromPrivate = findViewById(R.id.imageViewFromPrivate);
+        ImageFromPrivate.setImageURI(selectedImage);
 
-        kindOfBusiness = findViewById(R.id.spinerBusinessKind);
-        ArrayAdapter<String> myAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.KindOfBusiness));
-        myAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        kindOfBusiness.setAdapter(myAdapter1);
+        businessName = (TextView)findViewById(R.id.textBN);
+        businessName.setText(SbusinessName);
+
+        email = (TextView)findViewById(R.id.textEmail);
+        email.setText(Semail);
+
+
+        businessKind = (TextView)findViewById(R.id.textKind);
+        businessKind.setText(SbusinessKind);
 
         //business address
-        businessAddress = (EditText) findViewById(R.id.editBusinessAddress);
-
-        businessCity = (Spinner) findViewById(R.id.spinnerBusinessCity);
-        ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.Cities));
-        myAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        businessCity.setAdapter(myAdapter2);
+        businessAddress =  (TextView)findViewById(R.id.textAddress);
+        businessAddress.setText(SbusinessAddress);
+        businessCity = (TextView) findViewById(R.id.textCity);
+        businessCity.setText(SCity);
 
         //business Phone number
-        businessPhone = findViewById(R.id.editBusinessPhone);
+        businessPhone = (TextView)findViewById(R.id.textPhone);
+        businessPhone.setText(SbusinessPhone);
+
+
 
     }
     @Override
@@ -198,7 +239,7 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
 
                     Map<String, Object> values = new HashMap<>();
                     values.put("Email", editEmail.getText().toString().trim());
-                    values.put("City", businessCity.getSelectedItem().toString().trim());
+                    values.put("City", businessCitySpinner.getSelectedItem().toString().trim());
                     values.put("KindOfBusiness", kindOfBusiness.getSelectedItem().toString().trim());
                     values.put("PhoneNumber", editBusinessPhone.getText().toString().trim());
                     values.put("address",editBusinessAddress.getText().toString().trim());

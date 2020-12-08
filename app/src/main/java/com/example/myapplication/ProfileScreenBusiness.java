@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class ProfileScreenBusiness extends AppCompatActivity implements View.OnClickListener, PasswordDialog.ExampleDialogListener{
     public TextView helloUser;
-    public Button editProfile,search;
+    public Button editProfile;
     public ImageButton settings;
     public FirebaseUser currentUser;
     public String RegisterdID;
@@ -59,9 +59,6 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
         editProfile = (Button) findViewById(R.id.editBusinessUser);
         editProfile.setOnClickListener(this);
 
-        search = (Button) findViewById(R.id.searchFromBusinessProfile);
-        search.setOnClickListener(this);
-
         settings = (ImageButton) findViewById(R.id.SettingButton);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,12 +79,12 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
         switch(v.getId()){
             case R.id.editBusinessUser:
                 Intent intent = new Intent(this,BusinessProfile.class);
-                intent.putExtra("Path",Path);
+                intent.putExtra("extraID",FirebaseAuth.getInstance().getCurrentUser().getUid());
                 startActivity(intent);
                 break;
-            case R.id.searchFromBusinessProfile:
+            /*case R.id.searchFromBusinessProfile:
                 startActivity(new Intent(this,searchScreen.class));
-                break;
+                break;*/
 
         }
     }
