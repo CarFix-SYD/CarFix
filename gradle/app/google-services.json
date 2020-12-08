@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "44088948307",
+    "firebase_url": "https://carfix-1e18c.firebaseio.com",
+    "project_id": "carfix-1e18c",
+    "storage_bucket": "carfix-1e18c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44088948307:android:c8be047f786e04f31e78a6",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44088948307-nn2be9c96vllpohd45qs5gt2hvlphku2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1F5uyZ98lKl5tSrXQjF4-Z_e11z-3bjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44088948307-nn2be9c96vllpohd45qs5gt2hvlphku2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
