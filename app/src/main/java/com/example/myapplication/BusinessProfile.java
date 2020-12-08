@@ -45,7 +45,8 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
     private boolean[] checkCars;
     private ArrayList<Integer> carsBussines;
     private boolean WhichUser = true;
-    private String finalListOfCarBusiness ;
+    private String finalListOfCarBusiness ="";
+    private String newCarsInBusiNESS = "";
     public String BusinessID;
     public ImageView BImage, ImageFromPrivate;
     public  Uri selectedImage;
@@ -75,6 +76,7 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
                     SbusinessName = snapshot.child("businessName").getValue(String.class);
                     ScarsToTreat = snapshot.child("carsToTreat").getValue(String.class);
                     SbusinessPhone = snapshot.child("PhoneNumber").getValue(String.class);
+                    finalListOfCarBusiness = snapshot.child("carsToTreat").getValue(String.class);
 
                 }
             }
@@ -150,6 +152,7 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
         ArrayAdapter<String> myAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.KindOfBusiness));
         myAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         kindOfBusiness.setAdapter(myAdapter1);
+        kindOfBusiness.setSelection(myAdapter1.getPosition(SbusinessKind));
 
         //business address
         editBusinessAddress = (EditText) findViewById(R.id.editBusinessAddress);
@@ -157,8 +160,9 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
 
         businessCitySpinner = (Spinner) findViewById(R.id.spinnerBusinessCity);
         ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.Cities));
-        myAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        myAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         businessCitySpinner.setAdapter(myAdapter2);
+        businessCitySpinner.setSelection(myAdapter2.getPosition(SCity));
 
         //business Phone number
         editBusinessPhone = (EditText) findViewById(R.id.editBusinessPhone);
@@ -244,7 +248,14 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
                     values.put("PhoneNumber", editBusinessPhone.getText().toString().trim());
                     values.put("address",editBusinessAddress.getText().toString().trim());
                     values.put("businessName", editBusinessName.getText().toString().trim());
-                    values.put("carsToTreat",finalListOfCarBusiness);
+                    if(newCarsInBusiNESS.equals(finalListOfCarBusiness)){
+                        values.put("carsToTreat",finalListOfCarBusiness);
+                    }else if(newCarsInBusiNESS.isEmpty()){
+                        values.put("carsToTreat",finalListOfCarBusiness);
+                    }else{
+                        values.put("carsToTreat",newCarsInBusiNESS);
+                    }
+
                     if(!values.isEmpty()) {
                         user.updateEmail(editEmail.getText().toString().trim());
                         userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
@@ -296,9 +307,9 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
             public void onClick(DialogInterface dialog, int which) {
                 //String finalListCars = "";
                 for (int i = 0 ; i < carsBussines.size();i++){
-                    finalListOfCarBusiness = finalListOfCarBusiness + listOfCars[carsBussines.get(i)];
+                    newCarsInBusiNESS = newCarsInBusiNESS + listOfCars[carsBussines.get(i)];
                     if( i != carsBussines.size()-1){
-                        finalListOfCarBusiness = finalListOfCarBusiness + ", ";
+                        newCarsInBusiNESS = newCarsInBusiNESS + ", ";
                     }
                 }
             }

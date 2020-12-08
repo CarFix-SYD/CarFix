@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,8 +68,9 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
 
         businessCity = (Spinner) findViewById(R.id.spinnerBusinessCity);
         ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.Cities));
-        myAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        myAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         businessCity.setAdapter(myAdapter2);
+
 
         //business Phone number
         editBusinessPhone = (EditText) findViewById(R.id.editBusinessPhone);
@@ -94,6 +96,7 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
                     String carsToTreat = snapshot.child("carsToTreat").getValue(String.class);
                     String businessphone = snapshot.child("PhoneNumber").getValue(String.class);
 
+                    Toast.makeText(EditBusinessProfile.this,carsToTreat,Toast.LENGTH_LONG).show();
                     editEmail.setText(email);
                     editBusinessName.setText(businessName);
                     editbusinessPassword.setText(Password);
@@ -144,7 +147,9 @@ public class EditBusinessProfile extends AppCompatActivity implements View.OnCli
                     values.put("PhoneNumber", editBusinessPhone.getText().toString().trim());
                     values.put("address",editBusinessAddress.getText().toString().trim());
                     values.put("businessName", editBusinessName.getText().toString().trim());
-                    values.put("carsToTreat",finalListOfCarBusiness);
+                    if(!finalListOfCarBusiness.isEmpty()) {
+                        values.put("carsToTreat", finalListOfCarBusiness);
+                    }
                     if(!values.isEmpty()) {
                         user.updateEmail(editEmail.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
