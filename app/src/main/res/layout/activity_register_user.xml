@@ -87,17 +87,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="359dp"
-        android:layout_height="65dp"
+        android:layout_width="391dp"
+        android:layout_height="77dp"
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-black"
         android:text="Welcome to CarFix"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#000000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#3F51B5"
         android:textSize="36sp"
         android:textStyle="bold"
         android:typeface="serif"
@@ -109,14 +110,16 @@
 
     <Button
         android:id="@+id/registerbutton"
-        android:layout_width="359dp"
-        android:layout_height="65dp"
+        android:layout_width="412dp"
+        android:layout_height="63dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="?attr/colorAccent"
         android:text="Register"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/businessAddress"
         app:layout_constraintVertical_bias="1.0" />

@@ -217,13 +217,15 @@
 
     <Button
         android:id="@+id/editBusinessProfileSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="4dp"
-        android:text="save"
+        android:backgroundTint="?attr/colorAccent"
+        android:text="Save"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView

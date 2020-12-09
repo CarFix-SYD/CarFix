@@ -44,6 +44,8 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
     public String BusinessId,userId ;
     public ArrayList<String> problematicHours = new ArrayList<String>();
 
+    public String Pshecuale = "";
+
 
 
     @Override
@@ -78,7 +80,7 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                 dRefBusiness.child(BusinessId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
+                        if(snapshot.exists()&&snapshot.child("BookedTreatment").exists()){
                             String BookBusinessToAdapter []= snapshot.child("BookedTreatment").getValue().toString().split("e");
                             Toast.makeText(BookTreatment.this,BookBusinessToAdapter[0].substring(0,10),Toast.LENGTH_LONG).show();
                             Toast.makeText(BookTreatment.this,date,Toast.LENGTH_LONG).show();
@@ -129,20 +131,12 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
         String spinnerselection = BookTime.getSelectedItem().toString().trim();
         String toPush = date + "," + spinnerselection + "e";
         Boolean start = true;
-        // get the user previous scheduale
-        /*ArrayList<String> Pscheduale = new ArrayList<String>();
+
         dRefPrivate.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
-                    String Pscheduale [] = snapshot.child("BookedTreatment").getValue().toString().trim();
-                    for (String check : Pscheduale.split("e")) {
-                        if (toPush.equals(check)) {
-                            Toast.makeText(BookTreatment.this, "You allready booked treatment at this time", Toast.LENGTH_LONG).show();
-                            start = false;
-                        }
-
-                    }
+                if(snapshot.exists()) {
+                    Pshecuale = snapshot.child("BookedTreatment").getValue().toString().trim();
                 }
             }
 
@@ -152,9 +146,6 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
             }
         });
 
-
-
-        }*/
 
         if(start) {
             dRefBusiness.child(BusinessId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -175,8 +166,8 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                                     @Override
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
 
-                                        dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush /*+ Pscheduale*/);//add to the User firebase
-
+                                        dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush + Pshecuale);//add to the User firebase
+                                        Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
                                         startActivity(intent);
 
@@ -191,15 +182,14 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(BookTreatment.this, "Saves in" + BusinessId, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
                         dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(BookTreatment.this, "Saves in" + userId, Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
+                               Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
                                 startActivity(intent);
                             }
                         });

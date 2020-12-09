@@ -44,6 +44,7 @@
         android:layout_width="341dp"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
+        android:backgroundTint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -53,15 +54,19 @@
         android:layout_width="341dp"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
+        android:backgroundTint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kindOfTreat" />
 
     <Button
         android:id="@+id/searchButton"
-        android:layout_width="341dp"
-        android:layout_height="40dp"
+        android:layout_width="411dp"
+        android:layout_height="52dp"
+        android:backgroundTint="@color/teal_700"
         android:text="Search"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -70,6 +75,7 @@
         android:id="@+id/searchCitySpinner"
         android:layout_width="341dp"
         android:layout_height="40dp"
+        android:backgroundTint="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@+id/searchButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.485"

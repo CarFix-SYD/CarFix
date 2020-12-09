@@ -24,7 +24,6 @@ public class searchResults extends AppCompatActivity implements View.OnClickList
         populateListView();
 
 
-
     }
 
         public void populateListView() {
@@ -32,9 +31,12 @@ public class searchResults extends AppCompatActivity implements View.OnClickList
             ArrayList<businessUser> list = getIntent().getParcelableArrayListExtra("businessList");
             adapter = new businessAdapter(this, list);
             listViewBusiness.setAdapter(adapter);
-            listViewBusiness.setOnItemClickListener((parent, view, position, id) -> {
-                Toast.makeText(this, "Click on item" + position, Toast.LENGTH_LONG).show();
+            listViewBusiness.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                    Toast.makeText(searchResults.this, "Click on item" + position, Toast.LENGTH_LONG).show();
+                }
             });
 
         }

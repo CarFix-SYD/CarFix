@@ -16,19 +16,16 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.42"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/editBusinessUser"
         android:layout_width="206dp"
         android:layout_height="52dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
         android:layout_marginEnd="205dp"
         android:layout_weight="1"
         android:background="?attr/colorAccent"
@@ -38,7 +35,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/treatmenthistory"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -46,7 +42,6 @@
         android:layout_width="204dp"
         android:layout_height="52dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
         android:layout_weight="1"
         android:background="?attr/colorAccent"
         android:text="treatment history"
@@ -56,7 +51,6 @@
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
@@ -73,87 +67,6 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_action_name"
         tools:ignore="MissingConstraints" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="365dp"
-        android:layout_height="315dp"
-        android:background="@color/material_on_primary_emphasis_high_type"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.797">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:background="?attr/colorButtonNormal"
-                android:text="פרטי תור"
-                android:textColor="#090909"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="?attr/colorButtonNormal"
-                android:text="פרטי תור"
-                android:textColor="#090909"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:background="?attr/colorButtonNormal"
-                android:text="פרטי תור"
-                android:textColor="#090909"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="?attr/colorButtonNormal"
-                android:text="פרטי תור"
-                android:textColor="#090909"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:background="?attr/colorButtonNormal"
-                android:text="פרטי תור"
-                android:textColor="#090909"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:background="?attr/colorButtonNormal"
-                android:text="פרטי תור"
-                android:textColor="#090909"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:background="?attr/colorButtonNormal"
-                android:text="פרטי תור"
-                android:textColor="#090909"
-                android:textSize="18sp" />
-        </LinearLayout>
-    </ScrollView>
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -174,6 +87,14 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
+    <ListView
+        android:id="@+id/TreatmentListView"
+        android:layout_width="391dp"
+        android:layout_height="334dp"
+        android:layout_marginTop="124dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HelloBusinessUser" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

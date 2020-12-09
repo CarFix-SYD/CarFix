@@ -12,10 +12,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProfileScreenBusiness extends AppCompatActivity implements View.OnClickListener, PasswordDialog.ExampleDialogListener{
@@ -42,6 +47,10 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
     public String Path;
     public TextView editbusinessPassword;
     private AlertDialog alertDialog = null;
+
+    public ArrayAdapter Adapter;
+    public ListView TreatmentList;
+    public String  Treatments = "";
 
 
     @Override
@@ -66,6 +75,36 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
                 openDialog();
             }
         });
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentuid = user.getUid();
+
+        DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference userRef = rootref.child("BusinessUsers");
+
+        TreatmentList = (ListView) findViewById(R.id.TreatmentListView);
+
+        userRef.child(currentuid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
+                    Treatments = snapshot.child("BookedTreatment").getValue(String.class);
+                    List<String> list = new ArrayList<String>();
+                    List<String> temp = Arrays.asList(Treatments.split("e"));;
+                    for(String treatment: temp){
+                        list.add(treatment);
+                    }
+                    Adapter = new ArrayAdapter(ProfileScreenBusiness.this, android.R.layout.simple_list_item_1, list);
+                    TreatmentList.setAdapter(Adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+
 
     }
     public void openDialog() {

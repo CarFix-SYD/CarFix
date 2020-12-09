@@ -24,7 +24,8 @@
         android:layout_width="160dp"
         android:layout_height="34dp"
         android:layout_marginBottom="140dp"
-        android:background="?attr/colorButtonNormal"
+        android:background="#0C0C0C"
+        android:backgroundTint="#D8B99C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -67,5 +68,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="30dp"
+        android:layout_height="27dp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerBookTime"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerBookTime"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/spinnerBookTime"
+        app:layout_constraintTop_toTopOf="@+id/spinnerBookTime"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_down" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
