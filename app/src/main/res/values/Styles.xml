@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="GreenText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#00FF00</item>
+    </style>
+    <style name="PurpleText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FFBB86FC</item>
+    </style>
+    <style name="BlueText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FF3700B3</item>
+    </style>
+    <style name="LightPurpleText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FFBB86FC</item>
+    </style>
+    <style name="TealText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FF03DAC5</item>
+    </style>
+    <style name="DarkTealText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FF018786</item>
+    </style>
+
+
+</resources>

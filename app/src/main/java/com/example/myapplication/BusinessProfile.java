@@ -51,6 +51,8 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
     public ImageView BImage, ImageFromPrivate;
     public  Uri selectedImage;
 
+    public Button BookTreatment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,6 +216,9 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
         businessPhone = (TextView)findViewById(R.id.textPhone);
         businessPhone.setText(SbusinessPhone);
 
+        BookTreatment = (Button) findViewById(R.id.BOOKTREATMENT);
+        BookTreatment.setOnClickListener(this);
+
 
 
     }
@@ -226,7 +231,11 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
             case R.id.editBusinessProfileSave:
                 changeBusinessProfile();
                 break;
-
+            case R.id.BOOKTREATMENT:
+                Intent intent = new Intent(this, com.example.myapplication.BookTreatment.class);
+                intent.putExtra("BID",BusinessID);
+                startActivity(intent);
+                break;
         }
     }
 

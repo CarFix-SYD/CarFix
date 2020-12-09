@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/HelloBusinessUser"
+        style="@style/DarkTealText"
         android:layout_width="292dp"
         android:layout_height="32dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="84dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -21,20 +22,36 @@
 
     <Button
         android:id="@+id/editBusinessUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_width="206dp"
+        android:layout_height="52dp"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:background="@color/teal_200"
         android:text="Edit Business profile"
-        app:layout_constraintBottom_toTopOf="@+id/HelloBusinessUser"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/treatmenthistory"
+        android:layout_width="204dp"
+        android:layout_height="52dp"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:background="@color/teal_200"
+        android:text="treatment history"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.893"
-        app:layout_constraintStart_toEndOf="@+id/SettingButton" />
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/SettingButton"
         android:layout_width="51dp"
         android:layout_height="49dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_action_name"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="29dp" />
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
