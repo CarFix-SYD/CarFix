@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/design_default_color_surface"
     tools:context=".ProfileScreenBusiness">
 
     <TextView
@@ -15,22 +16,29 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.42"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
 
     <Button
         android:id="@+id/editBusinessUser"
         android:layout_width="206dp"
         android:layout_height="52dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="205dp"
         android:layout_weight="1"
-        android:background="@color/teal_200"
+        android:background="?attr/colorAccent"
         android:text="Edit Business profile"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/treatmenthistory"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -38,20 +46,134 @@
         android:layout_width="204dp"
         android:layout_height="52dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
         android:layout_weight="1"
-        android:background="@color/teal_200"
+        android:background="?attr/colorAccent"
         android:text="treatment history"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/SettingButton"
-        android:layout_width="51dp"
-        android:layout_height="49dp"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:background="#03FFFFFF"
+        android:tint="#0C0C0C"
+        app:layout_constraintBottom_toTopOf="@+id/HelloBusinessUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_action_name"
         tools:ignore="MissingConstraints" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="365dp"
+        android:layout_height="315dp"
+        android:background="@color/material_on_primary_emphasis_high_type"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.797">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:background="?attr/colorButtonNormal"
+                android:text="פרטי תור"
+                android:textColor="#090909"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="?attr/colorButtonNormal"
+                android:text="פרטי תור"
+                android:textColor="#090909"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:background="?attr/colorButtonNormal"
+                android:text="פרטי תור"
+                android:textColor="#090909"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="?attr/colorButtonNormal"
+                android:text="פרטי תור"
+                android:textColor="#090909"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:background="?attr/colorButtonNormal"
+                android:text="פרטי תור"
+                android:textColor="#090909"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="?attr/colorButtonNormal"
+                android:text="פרטי תור"
+                android:textColor="#090909"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:background="?attr/colorButtonNormal"
+                android:text="פרטי תור"
+                android:textColor="#090909"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="59dp"
+        android:layout_height="57dp"
+        android:adjustViewBounds="false"
+        android:background="#00090909"
+        android:backgroundTint="#00FFFFFF"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:foregroundTint="#07121111"
+        android:tint="#040303"
+        app:layout_constraintBottom_toTopOf="@+id/HelloBusinessUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/SettingButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

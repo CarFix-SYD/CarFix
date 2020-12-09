@@ -6,12 +6,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,13 +23,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +63,11 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
     public  Uri selectedImage;
 
     public Button BookTreatment;
+
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    private static final String TAG = "BusinessProfile";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +188,9 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
 
         Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
         BImage = (ImageView)findViewById(R.id.imageView2);
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,17 +198,77 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(OpenGalleryIntent, 100);
             }
-        });
 
+        });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == Activity.RESULT_OK && data != null) {
             selectedImage = data.getData();
             BImage.setImageURI(selectedImage);
+            uploadImage();
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setPhotoUri(selectedImage).build();
+
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "User profile updated.");
+                            }
+                        }
+                    });
         }
     }
+
+    private void uploadImage() {
+        if (selectedImage != null) {
+
+            // Code for showing progressDialog while uploading
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            // Defining the child of storageReference
+            StorageReference ref = storageReference.child("images/" + FirebaseAuth.getInstance().getCurrentUser().toString());
+            // adding listeners on upload
+            // or failure of image
+            ref.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(
+                        UploadTask.TaskSnapshot taskSnapshot) {
+                    // Image uploaded successfully
+                    // Dismiss dialog
+                    progressDialog.dismiss();
+                    Toast.makeText(BusinessProfile.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    // Error, Image not uploaded
+                    progressDialog.dismiss();
+                    Toast.makeText(BusinessProfile.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                // Progress Listener for loading
+                // percentage on the dialog box
+                @Override
+                public void onProgress(
+                        UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                }
+            });
+        }
+    }
+
+
     //public TextView email, businessName,businessAddress,businessPhone,businessKind;
     public void isPrivate() {
 

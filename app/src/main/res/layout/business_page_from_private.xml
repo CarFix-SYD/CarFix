@@ -3,29 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/editBusiness2"
         android:layout_width="70dp"
         android:layout_height="34dp"
-        android:text="email"
+        android:text="Email:"
         android:textAlignment="textStart"
+        android:textColor="#0C0C0C"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editBusinessA2"
-        app:layout_constraintVertical_bias="0.142"
+        app:layout_constraintVertical_bias="0.088"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/editBusinessA2"
         android:layout_width="110dp"
         android:layout_height="39dp"
-        android:text="address"
+        android:text="Address:"
         android:textAlignment="textStart"
+        android:textColor="#090909"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,8 +41,9 @@
         android:id="@+id/editBusinessCity2"
         android:layout_width="75dp"
         android:layout_height="38dp"
-        android:text="city"
+        android:text="City:"
         android:textAlignment="textStart"
+        android:textColor="#050505"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,74 +54,61 @@
 
     <TextView
         android:id="@+id/editBusinessKind2"
-        android:layout_width="69dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="244dp"
-        android:text="kind"
+        android:layout_width="150dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="64dp"
+        android:text="Business Type:"
         android:textAlignment="textStart"
+        android:textColor="#090909"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/editBusinessBN2"
-        android:layout_width="130dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="35dp"
-        android:text="business_name"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editBusinessKind2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textBN" />
 
     <TextView
         android:id="@+id/textBN"
-        android:layout_width="120dp"
-        android:layout_height="72dp"
-        android:text="textview"
+        android:layout_width="209dp"
+        android:layout_height="59dp"
+        android:text="BusinessName"
+        android:textColor="#040303"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.765"
-        app:layout_constraintStart_toEndOf="@+id/editBusinessBN2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.495" />
+        app:layout_constraintVertical_bias="0.459" />
 
     <TextView
         android:id="@+id/textAddress"
         android:layout_width="129dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:text="textview"
         app:layout_constraintBottom_toTopOf="@+id/textEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.775"
+        app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toEndOf="@+id/editBusinessA2" />
 
     <TextView
         android:id="@+id/textEmail"
         android:layout_width="137dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="216dp"
+        android:layout_marginBottom="176dp"
         android:text="textview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.851"
+        app:layout_constraintHorizontal_bias="0.845"
         app:layout_constraintStart_toEndOf="@+id/editBusiness2" />
 
     <TextView
         android:id="@+id/textKind"
         android:layout_width="118dp"
         android:layout_height="59dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="28dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toEndOf="@+id/editBusinessKind2"
         app:layout_constraintTop_toBottomOf="@+id/textBN" />
 
@@ -135,10 +126,12 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Phone"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:text="Phone:"
+        android:textColor="#090909"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editBusiness2"
@@ -151,28 +144,47 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintHorizontal_bias="0.864"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textEmail"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <ImageView
         android:id="@+id/imageViewFromPrivate"
         android:layout_width="194dp"
         android:layout_height="107dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/textBN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/BOOKTREATMENT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_width="194dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="?attr/colorAccent"
         android:text="Book treatment"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="205dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp"
+        android:background="?attr/colorControlActivated"
+        android:text="Back"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/BOOKTREATMENT" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
