@@ -18,7 +18,7 @@
         <activity android:name=".resetPassword" />
         <activity android:name=".ProfileScreenPrivate" />
         <activity android:name=".RegisterUser" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

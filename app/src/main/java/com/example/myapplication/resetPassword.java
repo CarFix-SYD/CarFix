@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,7 +67,7 @@ public class resetPassword extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(resetPassword.this,"Check your Email",Toast.LENGTH_LONG).show();
                     progressbar.setVisibility(View.GONE);
-                    startActivity(new Intent(resetPassword.this,MainActivity.class));
+                    startActivity(new Intent(resetPassword.this, LoginActivity.class));
 
                 }else{
                     Toast.makeText(resetPassword.this,"Opps! Try again",Toast.LENGTH_LONG).show();

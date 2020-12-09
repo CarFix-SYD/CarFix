@@ -90,7 +90,7 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
                 if (snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
                     Treatments = snapshot.child("BookedTreatment").getValue(String.class);
                     List<String> list = new ArrayList<String>();
-                    List<String> temp = Arrays.asList(Treatments.split("e"));;
+                    List<String> temp = Arrays.asList(Treatments.split("e"));
                     for(String treatment: temp){
                         list.add(treatment);
                     }

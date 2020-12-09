@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.BoringLayout;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,7 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
@@ -232,7 +230,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 */
                                         Toast.makeText(RegisterUser.this ,"User is registered successfully",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-                                        startActivity(new Intent(RegisterUser.this,MainActivity.class));
+                                        startActivity(new Intent(RegisterUser.this, LoginActivity.class));
                                     }else{
                                         Toast.makeText(RegisterUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
@@ -305,7 +303,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                     if(task.isSuccessful()){
                                         Toast.makeText(RegisterUser.this ,"User is registered successfully",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-                                        startActivity(new Intent(RegisterUser.this,MainActivity.class));
+                                        startActivity(new Intent(RegisterUser.this, LoginActivity.class));
                                     }else{
                                         Toast.makeText(RegisterUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
