@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,9 @@ import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +41,10 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     public DatabaseReference dRefBusiness = database.getReference("BusinessUsers");
     public DatabaseReference dRefPrivate = database.getReference("PrivateUsers");
-    public String BusinessId ;
+    public String BusinessId,userId ;
+    public ArrayList<String> problematicHours = new ArrayList<String>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,25 +56,60 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
         BusinessId = intent.getStringExtra("BID");
         //ID USER
         //
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        BookTime = (Spinner) findViewById(R.id.spinnerBookTime);
+        List<String> list = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.Appointment_time)));
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,list);
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        BookTime.setAdapter(myAdapter);
+
+
+
         currentCalandar = (CalendarView) findViewById(R.id.calendarView);
         currentCalandar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                date = dayOfMonth + "/"+month+"/"+year;
-                Toast.makeText(BookTreatment.this,date,Toast.LENGTH_LONG).show();
+                list.clear(); // clear the hours list
+                list.addAll(Arrays.asList(getResources().getStringArray(R.array.Appointment_time))); // add the hours list again
+                myAdapter.notifyDataSetChanged();//notify thr adapter of the spinner
+                problematicHours.clear();// clear previous problematic hours
+                date = dayOfMonth + "/" + (month+1) + "/" + year;
+                dRefBusiness.child(BusinessId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            String BookBusinessToAdapter []= snapshot.child("BookedTreatment").getValue().toString().split("e");
+                            Toast.makeText(BookTreatment.this,BookBusinessToAdapter[0].substring(0,10),Toast.LENGTH_LONG).show();
+                            Toast.makeText(BookTreatment.this,date,Toast.LENGTH_LONG).show();
+
+                            for (int i = 0 ; i<BookBusinessToAdapter.length;i++){
+                                if(BookBusinessToAdapter[i].substring(0,10).equals(date)){
+                                    problematicHours.add(BookBusinessToAdapter[i].split(",")[1]);
+                                    Toast.makeText(BookTreatment.this,BookBusinessToAdapter[i].split(",")[1],Toast.LENGTH_LONG).show();
+
+                                }
+                            }
+                            for (int i = 0 ; i < problematicHours.size();i++){
+                                list.remove(problematicHours.get(i));
+                            }
+
+
+                        }
+                        myAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
             }
         });
 
         Book = (Button) findViewById(R.id.BookInCalander);
         Book.setOnClickListener(this);
-
-        List<String> list = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.Appointment_time)));
-        BookTime = (Spinner) findViewById(R.id.spinnerBookTime);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,list);
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        BookTime.setAdapter(myAdapter);
-
 
     }
 
@@ -84,48 +126,27 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
     }
 
     private void saveDateAndTime() {
-        long milliDate = currentCalandar.getDate();
-
-        //date = getDate(milliDate,"dd/MM/yyyy");
         String spinnerselection = BookTime.getSelectedItem().toString().trim();
-
-        dRefBusiness.child(BusinessId).addValueEventListener(new ValueEventListener() {
+        String toPush = date + "," + spinnerselection + "e";
+        Boolean start = true;
+        // get the user previous scheduale
+        /*ArrayList<String> Pscheduale = new ArrayList<String>();
+        dRefPrivate.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String toPush = date + "," + spinnerselection + "e";
-
                 if (snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
-                    String s = snapshot.child("BookedTreatment").getValue().toString().trim();
-
-                    if (s != "" ) {
-                    String[] checkDates = s.split("e");
-
-                        for (String check : checkDates) {
-                            if (check.equals(toPush)) {
-                                Toast.makeText(BookTreatment.this, "Allready taken", Toast.LENGTH_LONG).show();
-                            } else {
-                                Map<String, Object> values = new HashMap<>();
-                                values.put("BookedTreatment", toPush);
-                                if (!values.isEmpty()) {
-                                    dRefBusiness.child(BusinessId).updateChildren(values, new DatabaseReference.CompletionListener() {
-                                        @Override
-                                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                            Toast.makeText(BookTreatment.this, "Saved Treatment", Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
-                                            startActivity(intent);
-                                        }
-                                    });
-                                }
-                            }
+                    String Pscheduale [] = snapshot.child("BookedTreatment").getValue().toString().trim();
+                    for (String check : Pscheduale.split("e")) {
+                        if (toPush.equals(check)) {
+                            Toast.makeText(BookTreatment.this, "You allready booked treatment at this time", Toast.LENGTH_LONG).show();
+                            start = false;
                         }
 
                     }
-                }else{
-                    dRefBusiness.child(BusinessId).child("BookedTreatment").push().setValue(toPush);
                 }
-
             }
-        @Override
+
+            @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
@@ -133,7 +154,71 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
 
 
 
+        }*/
+
+        if(start) {
+            dRefBusiness.child(BusinessId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    //check if Bussines user have treatment
+                    if (snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
+                        String businessScheduale = snapshot.child("BookedTreatment").getValue().toString().trim();
+                        //if exist then split it to make array to ckeck inside
+                        if (!businessScheduale.isEmpty()) {
+                            // if not push it to the databse of the business user
+                            Map<String, Object> values = new HashMap<>();
+                            values.put("BookedTreatment", toPush + businessScheduale);
+                            if (!values.isEmpty()) {
+
+                                dRefBusiness.child(BusinessId).updateChildren(values, new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                                        dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush /*+ Pscheduale*/);//add to the User firebase
+
+                                        Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
+                                        startActivity(intent);
+
+                                    }
+                                });
+                            }
+
+                        }
+
+                    } else {
+                        dRefBusiness.child(BusinessId).child("BookedTreatment").setValue(toPush).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(BookTreatment.this, "Saves in" + BusinessId, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                        dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(BookTreatment.this, "Saves in" + userId, Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
+                                startActivity(intent);
+                            }
+                        });
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+
+            });
+        }
     }
+
+
 
 
     public static String getDate(long milliSeconds, String dateFormat)
@@ -146,5 +231,8 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
     }
+
+
+
 }
 
