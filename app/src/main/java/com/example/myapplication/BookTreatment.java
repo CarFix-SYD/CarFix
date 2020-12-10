@@ -82,13 +82,11 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()&&snapshot.child("BookedTreatment").exists()){
                             String BookBusinessToAdapter []= snapshot.child("BookedTreatment").getValue().toString().split("e");
-                            Toast.makeText(BookTreatment.this,BookBusinessToAdapter[0].substring(0,10),Toast.LENGTH_LONG).show();
-                            Toast.makeText(BookTreatment.this,date,Toast.LENGTH_LONG).show();
+
 
                             for (int i = 0 ; i<BookBusinessToAdapter.length;i++){
                                 if(BookBusinessToAdapter[i].substring(0,10).equals(date)){
                                     problematicHours.add(BookBusinessToAdapter[i].split(",")[1]);
-                                    Toast.makeText(BookTreatment.this,BookBusinessToAdapter[i].split(",")[1],Toast.LENGTH_LONG).show();
 
                                 }
                             }
@@ -135,7 +133,7 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
         dRefPrivate.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
+                if(snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
                     Pshecuale = snapshot.child("BookedTreatment").getValue().toString().trim();
                 }
             }
@@ -189,6 +187,7 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                         dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
                                Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
                                 startActivity(intent);
                             }

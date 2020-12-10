@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         editTextEmail = (EditText) findViewById(R.id.loginEmail);
         EditTextPassword = (EditText) findViewById(R.id.loginPassword);
-        //progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     public void onClick(View v) {
@@ -99,8 +99,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        // Progress bar visible
-       // progressBar.setVisibility(View.VISIBLE);
+         //Progress bar visible
+        progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(userName,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -123,8 +123,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Intent intentBusiness = new Intent(LoginActivity.this, ProfileScreenBusiness.class);
                                     intentBusiness.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intentBusiness);
+                                    progressBar.setVisibility(View.GONE);
+                                    return;
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    return;
                                 }
                             }
                         }
@@ -149,9 +153,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Intent intentPrivate = new Intent(LoginActivity.this, ProfileScreenPrivate.class);
                                     intentPrivate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intentPrivate);
+                                    progressBar.setVisibility(View.GONE);
+                                    return;
 
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    return;
                                 }
                             }
 
@@ -166,6 +174,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }else{
                     Toast.makeText(LoginActivity.this,"Failed to login",Toast.LENGTH_LONG).show();;
                     progressBar.setVisibility(View.GONE);
+                    return;
                 }
 
             }
