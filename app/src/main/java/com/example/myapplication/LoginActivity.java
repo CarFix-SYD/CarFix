@@ -24,14 +24,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * the first activity that appears in the app, connect the user to register, forgot password and login.
+ * check if the user is in firebase database and move him to the right activity to his type and profile
+ */
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView register,forgotPassword;
-    private EditText editTextEmail,EditTextPassword;
-    private Button signIn;
+    private TextView register,forgotPassword;//textViews in the bottom that direct to those activities
+    private EditText editTextEmail,EditTextPassword; // edit texts to enter user name and password
+    private Button signIn; // the sign in button
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth; // firebase variable
     private ProgressBar progressBar;
 
 
@@ -56,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
+    //buttons on scren
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.register:
@@ -172,6 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
 
                 }else{
+                    // if login is failed make toast and stay in the same activity
                     Toast.makeText(LoginActivity.this,"Failed to login",Toast.LENGTH_LONG).show();;
                     progressBar.setVisibility(View.GONE);
                     return;

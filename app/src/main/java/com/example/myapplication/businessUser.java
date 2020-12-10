@@ -3,6 +3,11 @@ package com.example.myapplication;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Business user - gets all the attributes to buikd the business user.
+ * implements Parcelable for moving list of business users from search screen to search results
+ * and show them
+ */
 public class businessUser implements Parcelable {
 
     public String Email = "";
@@ -33,7 +38,7 @@ public class businessUser implements Parcelable {
     public businessUser(){}
 
 
-    //////parcel using
+    // Unpacking the businessUser in that order from the objects list
     public businessUser(Parcel in){
         String[]data = new String[10];
         in.readStringArray(data);
@@ -57,6 +62,7 @@ public class businessUser implements Parcelable {
         return 0;
     }
 
+    //build the parcel to string array
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[]{this.Email,this.businessName,this.Password,this.KindOfBusiness,this.carsToTreat,this.address,this.City,this.PhoneNumber,this.type, this.ID});

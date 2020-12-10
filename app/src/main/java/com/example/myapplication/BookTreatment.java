@@ -32,6 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The class BookTreatment is used to book treatments in business and private user database,
+ * get the previous information from both and check the time available.
+ */
 public class BookTreatment extends AppCompatActivity implements View.OnClickListener{
 
     public CalendarView currentCalandar;
@@ -53,12 +57,10 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_treatment);
 
-        //ID BUSINESS
         Intent intent = getIntent();
-        BusinessId = intent.getStringExtra("BID");
-        //ID USER
-        //
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        BusinessId = intent.getStringExtra("BID");//get the Business id from the last screen
+
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();// get the currenrt user id from the database
 
         BookTime = (Spinner) findViewById(R.id.spinnerBookTime);
         List<String> list = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.Appointment_time)));
@@ -69,6 +71,8 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
 
 
         currentCalandar = (CalendarView) findViewById(R.id.calendarView);
+
+        //listener for the calander changes and apat the time that avaliable for the business in that day
         currentCalandar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -86,17 +90,17 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
 
                             for (int i = 0 ; i<BookBusinessToAdapter.length;i++){
                                 if(BookBusinessToAdapter[i].substring(0,10).equals(date)){
-                                    problematicHours.add(BookBusinessToAdapter[i].split(",")[1]);
+                                    problematicHours.add(BookBusinessToAdapter[i].split(",")[1]);//add the problematic hours for each business
 
                                 }
                             }
                             for (int i = 0 ; i < problematicHours.size();i++){
-                                list.remove(problematicHours.get(i));
+                                list.remove(problematicHours.get(i));// remove them from the strings list
                             }
 
 
                         }
-                        myAdapter.notifyDataSetChanged();
+                        myAdapter.notifyDataSetChanged();//notify the adapter on the changes
                     }
 
                     @Override
@@ -115,7 +119,7 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
 
 
 
-
+    // on click wwaits for user click in the screen and get the id of the component clicked
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -125,11 +129,14 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * א.this function book the treatment in both users databases
+     */
     private void saveDateAndTime() {
         String spinnerselection = BookTime.getSelectedItem().toString().trim();
         String toPush = date + "," + spinnerselection + "e";
         Boolean start = true;
-
+        // we check if the private user has previous schedule if there is save it in P schedule
         dRefPrivate.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -144,13 +151,13 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
             }
         });
 
-
+        // add listener to the business place in the database
         if(start) {
             dRefBusiness.child(BusinessId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    //check if Bussines user have treatment
+                    //check if Business user have "BookedTreatment" in database
                     if (snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
                         String businessScheduale = snapshot.child("BookedTreatment").getValue().toString().trim();
                         //if exist then split it to make array to ckeck inside
@@ -159,13 +166,13 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                             Map<String, Object> values = new HashMap<>();
                             values.put("BookedTreatment", toPush + businessScheduale);
                             if (!values.isEmpty()) {
-
+                                // if the business user have "BookedTreatment" in database save the previous with the new one
                                 dRefBusiness.child(BusinessId).updateChildren(values, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
 
                                         dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush + Pshecuale);//add to the User firebase
-                                        Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
+                                        Toast.makeText(BookTreatment.this, "Treatment saved in date " + toPush, Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
                                         startActivity(intent);
 
@@ -174,7 +181,8 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                             }
 
                         }
-
+                        //the else statement is for thr case when the business user dont have previous schedule,
+                        // and here it add the key of "BookedTreatment" to the database and the date, for both users
                     } else {
                         dRefBusiness.child(BusinessId).child("BookedTreatment").setValue(toPush).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -184,7 +192,8 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                                 }
                             }
                         });
-                        dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        //here we save the previous treatments and the new one in the private user database
+                        dRefPrivate.child(userId).child("BookedTreatment").setValue(toPush+Pshecuale).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
@@ -208,8 +217,12 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
     }
 
 
-
-
+    /**
+     * function to convert from milliseconds to date format ff/mm/yyyy
+     * @param milliSeconds - the time in milliseconds from 1970
+     * @param dateFormat - the output format dd/mm/yyyy
+     * @return date formatted
+     */
     public static String getDate(long milliSeconds, String dateFormat)
     {
         // Create a DateFormatter object for displaying date in specified format.

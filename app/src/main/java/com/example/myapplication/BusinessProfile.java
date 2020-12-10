@@ -44,6 +44,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * this class show the business profile in two ways:
+ * 1.to business user it shows editable version
+ * 2.to private users it show read only version
+ */
 public class BusinessProfile extends AppCompatActivity implements View.OnClickListener {
 
     public EditText editEmail,editBusinessName,editBusinessAddress,editBusinessPhone;
@@ -75,13 +80,13 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
         Intent intent = getIntent();
         BusinessID = intent.getStringExtra("extraID");
 
-
+        //create the firebase connection
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String currentuid = user.getUid();
+        String currentuid = user.getUid(); // get the current user id
         DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userRef = rootref.child("BusinessUsers");
 
-
+        // get all information from the business user database
         userRef.child(BusinessID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -106,7 +111,8 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
             }
 
         });
-
+        //both references down are to check if the user connected to this activity is private or business
+        //if private go to isPrivate() if business go to isBusiness()
         DatabaseReference jloginDatabaseBusiness = FirebaseDatabase.getInstance().getReference("/BusinessUsers/").child(currentuid);
         jloginDatabaseBusiness.addValueEventListener(new ValueEventListener() {
             @Override
@@ -151,6 +157,10 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    /**
+     * create the editable version of the activity for the business user
+     * here he can edit all the attributes in his profile except the password
+     */
     public void isBusiness(){
 
         saveChanges = (Button) findViewById(R.id.editBusinessProfileSave);
@@ -269,7 +279,9 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    //public TextView email, businessName,businessAddress,businessPhone,businessKind;
+    /**
+     * isPrivate() -create the read only version for the private user
+     */
     public void isPrivate() {
 
         ImageFromPrivate = findViewById(R.id.imageViewFromPrivate);
@@ -317,7 +329,7 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
-
+    //save the chnages
     private void changeBusinessProfile() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();
@@ -371,6 +383,8 @@ public class BusinessProfile extends AppCompatActivity implements View.OnClickLi
 
     }
 
+
+    // create the list of cars to treat for the business user to add or change
     private void listOfCarsForBusiness() {
         listOfCars = getResources().getStringArray(R.array.CarTypesForBusiness);
         checkCars = new boolean[listOfCars.length];

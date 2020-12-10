@@ -17,12 +17,16 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * businessAdapter - this class represents the item in the list of the search results
+ * to every result it creates item view with all the attributes.
+ */
 public class businessAdapter extends BaseAdapter {
     private Activity context;
-    ArrayList<businessUser> business;
+    ArrayList<businessUser> business;// gets list of business users from the search
     private static LayoutInflater inflater = null;
 
-
+    // build the adapter for the screen items
     public businessAdapter(Activity context, ArrayList<businessUser> business) {
         this.context = context;
         this.business = business;
@@ -45,6 +49,8 @@ public class businessAdapter extends BaseAdapter {
         return position;
     }
 
+
+    //Enter to each item in the view the exact information from the database.
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
        View itemView = convertView;
@@ -59,13 +65,11 @@ public class businessAdapter extends BaseAdapter {
        textViewEmail.setText(selected.Email);
        textViewAddress.setText(selected.City + ", " + selected.address);
        textViewPhone.setText(selected.PhoneNumber);
-       /////////////////////////////////////////////
        textID.setText(selected.ID);
        textID.setVisibility(View.GONE);
-       ///////////////////////////////////////////////
-       Toast.makeText(context, selected.ID, Toast.LENGTH_SHORT).show();
 
         Button moveToSelected = (Button) itemView.findViewById(R.id.buttonToBusiness);
+        //the button "Order" in each item that direct to business ptofile
         moveToSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
