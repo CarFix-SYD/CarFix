@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileScreenPrivate">
+    tools:context=".profileScreenPrivate">
 
     <TextView
         android:id="@+id/HelloUser"
         android:layout_width="331dp"
         android:layout_height="73dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="4dp"
         android:lineSpacingExtra="14sp"
         android:text="Hello user"
         android:textAlignment="center"
@@ -60,8 +60,8 @@
 
     <ImageButton
         android:id="@+id/SettingButtonP"
-        android:layout_width="63dp"
-        android:layout_height="63dp"
+        android:layout_width="50dp"
+        android:layout_height="47dp"
         android:background="#03FFFFFF"
         android:tint="#0C0C0C"
         app:layout_constraintBottom_toTopOf="@+id/HelloBusinessUser"
@@ -77,15 +77,25 @@
         android:id="@+id/button"
         android:layout_width="247dp"
         android:layout_height="56dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="12dp"
         android:background="?attr/colorAccent"
         android:text="Watch history"
         android:textColor="#FAF9F9"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HelloUser" />
+
+    <ListView
+        android:id="@+id/listOfAppointments"
+        android:layout_width="391dp"
+        android:layout_height="272dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

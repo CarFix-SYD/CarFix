@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
+public class registerUser extends AppCompatActivity implements View.OnClickListener {
 
     private Button registerUser;
     //for user register
@@ -226,19 +226,19 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         /* Buser.setID(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                        Toast.makeText(RegisterUser.this ,Buser.getID(),Toast.LENGTH_LONG).show();
+                                        Toast.makeText(registerUser.this ,Buser.getID(),Toast.LENGTH_LONG).show();
 */
-                                        Toast.makeText(RegisterUser.this ,"User is registered successfully",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(com.example.myapplication.registerUser.this ,"User is registered successfully",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-                                        startActivity(new Intent(RegisterUser.this, LoginActivity.class));
+                                        startActivity(new Intent(com.example.myapplication.registerUser.this, loginActivity.class));
                                     }else{
-                                        Toast.makeText(RegisterUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(com.example.myapplication.registerUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
                         }else{
-                            Toast.makeText(RegisterUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
+                            Toast.makeText(com.example.myapplication.registerUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
@@ -301,17 +301,17 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(RegisterUser.this ,"User is registered successfully",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(com.example.myapplication.registerUser.this ,"User is registered successfully",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-                                        startActivity(new Intent(RegisterUser.this, LoginActivity.class));
+                                        startActivity(new Intent(com.example.myapplication.registerUser.this, loginActivity.class));
                                     }else{
-                                        Toast.makeText(RegisterUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(com.example.myapplication.registerUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
                         }else{
-                            Toast.makeText(RegisterUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
+                            Toast.makeText(com.example.myapplication.registerUser.this ,"Failed to register User",Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
@@ -322,7 +322,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         listOfCars = getResources().getStringArray(R.array.CarTypesForBusiness);
         checkCars = new boolean[listOfCars.length];
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegisterUser.this);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(com.example.myapplication.registerUser.this);
         mBuilder.setTitle("Choose companies you treat");
         mBuilder.setMultiChoiceItems(listOfCars, checkCars, new DialogInterface.OnMultiChoiceClickListener() {
             @Override

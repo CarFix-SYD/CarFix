@@ -67,7 +67,7 @@ public class resetPassword extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(resetPassword.this,"Check your Email",Toast.LENGTH_LONG).show();
                     progressbar.setVisibility(View.GONE);
-                    startActivity(new Intent(resetPassword.this, LoginActivity.class));
+                    startActivity(new Intent(resetPassword.this, loginActivity.class));
 
                 }else{
                     Toast.makeText(resetPassword.this,"Opps! Try again",Toast.LENGTH_LONG).show();

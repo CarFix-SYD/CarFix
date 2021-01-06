@@ -9,8 +9,8 @@
         android:id="@+id/imageView"
         android:layout_width="97dp"
         android:layout_height="89dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -20,38 +20,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
         android:textColor="#070707"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        tools:layout_editor_absoluteY="28dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="#0B0A0A"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToBusiness" />
+        app:layout_constraintTop_toBottomOf="@+id/businessAddressResult" />
 
     <Button
         android:id="@+id/buttonToBusiness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="72dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#CAAF89"
         android:text="order"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.985"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,40 +59,49 @@
         android:id="@+id/businessAddressResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="12dp"
         android:text="TextView"
         android:textColor="#0B0A0A"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName"
-        app:layout_constraintVertical_bias="0.459" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
     <TextView
         android:id="@+id/businessPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="#121111"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.194"
         app:layout_constraintStart_toEndOf="@+id/textViewEmail"
         app:layout_constraintTop_toBottomOf="@+id/buttonToBusiness" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/AVGrating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textColor="#0C0C0C"
+        android:textColor="#121111"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/buttonToBusiness"
-        app:layout_constraintHorizontal_bias="0.796"
         app:layout_constraintStart_toEndOf="@+id/textViewName"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="28dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textviewID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/businessPhone"
+        tools:layout_editor_absoluteY="86dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

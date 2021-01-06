@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
+    <uses-sdk android:minSdkVersion="14" />
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,16 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".BookTreatment"></activity>
-        <activity android:name=".BusinessProfile" />
-        <activity android:name=".EditPrivateUserProfile" />
-        <activity android:name=".ProfileScreenBusiness" />
+        <activity android:name=".leaveReviewDialog"></activity>
+        <activity android:name=".bookTreatment" />
+        <activity android:name=".businessPageByUser" />
+        <activity android:name=".editPrivateUserProfile" />
+        <activity android:name=".profileScreenBusiness" />
         <activity android:name=".searchResults" />
         <activity android:name=".searchScreen" />
         <activity android:name=".resetPassword" />
-        <activity android:name=".ProfileScreenPrivate" />
-        <activity android:name=".RegisterUser" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".profileScreenPrivate" />
+        <activity android:name=".registerUser" />
+        <activity android:name=".loginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

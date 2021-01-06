@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/design_default_color_surface"
-    tools:context=".ProfileScreenBusiness">
+    tools:context=".profileScreenBusiness">
 
     <TextView
         android:id="@+id/HelloBusinessUser"
@@ -89,9 +89,9 @@
 
     <ListView
         android:id="@+id/TreatmentListView"
-        android:layout_width="391dp"
-        android:layout_height="334dp"
-        android:layout_marginTop="124dp"
+        android:layout_width="373dp"
+        android:layout_height="447dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HelloBusinessUser" />

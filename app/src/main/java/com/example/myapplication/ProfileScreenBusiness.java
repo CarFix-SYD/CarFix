@@ -5,20 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,25 +24,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class ProfileScreenBusiness extends AppCompatActivity implements View.OnClickListener, PasswordDialog.ExampleDialogListener{
+public class profileScreenBusiness extends AppCompatActivity implements View.OnClickListener, changePasswordDialog.ExampleDialogListener,addDescriptionBsuinessDialog.addDescriptionInterface{
     public TextView helloUser;
     public Button editProfile;
     public ImageButton settings;
     public FirebaseUser currentUser;
     public String RegisterdID;
     public String Path;
-    public TextView editbusinessPassword;
     private AlertDialog alertDialog = null;
-
-    public ArrayAdapter Adapter;
     public ListView TreatmentList;
-    public String  Treatments = "";
+    private appointmentAdapterBusiness adapter;
 
 
     @Override
@@ -81,34 +71,53 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
 
         DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userRef = rootref.child("BusinessUsers");
-
-        TreatmentList = (ListView) findViewById(R.id.TreatmentListView);
-
-        userRef.child(currentuid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
-                    Treatments = snapshot.child("BookedTreatment").getValue(String.class);
-                    List<String> list = new ArrayList<String>();
-                    List<String> temp = Arrays.asList(Treatments.split("e"));
-                    for(String treatment: temp){
-                        list.add(treatment);
-                    }
-                    Adapter = new ArrayAdapter(ProfileScreenBusiness.this, android.R.layout.simple_list_item_1, list);
-                    TreatmentList.setAdapter(Adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        populateListViewAppointments();
 
 
 
     }
+
+    private void populateListViewAppointments() {
+        DatabaseReference dRef = FirebaseDatabase.getInstance().getReference();
+
+        TreatmentList = (ListView) findViewById(R.id.TreatmentListView);
+        ArrayList<Appointment> list = new ArrayList<Appointment>();
+        dRef.child("BusinessUsers").child(currentUser.getUid()).child("BookedTreatment").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data : snapshot.getChildren()) {
+
+                    String appDate = data.child("date").getValue().toString().trim();
+                    String appBusinessID = data.child("businessID").getValue().toString().trim();
+                    String appPrivateID = data.child("privateID").getValue().toString().trim();
+                    Appointment app = new Appointment(appDate,appPrivateID,appBusinessID);
+
+                    //check if the date is in the past if it is dont show it anymore
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy,HH:mm");
+                    try {
+                        Date dateCheck = sdf.parse(appDate);
+                        if(System.currentTimeMillis() < dateCheck.getTime())
+                            list.add(app);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                adapter = new appointmentAdapterBusiness(profileScreenBusiness.this, list);
+                TreatmentList.setAdapter(adapter);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
     public void openDialog() {
-        PasswordDialog exampleDialog = new PasswordDialog();
+        changePasswordDialog exampleDialog = new changePasswordDialog();
         exampleDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
@@ -117,13 +126,10 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.editBusinessUser:
-                Intent intent = new Intent(this,BusinessProfile.class);
+                Intent intent = new Intent(this, businessPageByUser.class);
                 intent.putExtra("extraID",FirebaseAuth.getInstance().getCurrentUser().getUid());
                 startActivity(intent);
                 break;
-            /*case R.id.searchFromBusinessProfile:
-                startActivity(new Intent(this,searchScreen.class));
-                break;*/
 
         }
     }
@@ -153,16 +159,16 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
                         userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                Intent intent = new Intent(ProfileScreenBusiness.this, ProfileScreenBusiness.class);
-                                Toast.makeText(ProfileScreenBusiness.this, "Profile updated", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(profileScreenBusiness.this, profileScreenBusiness.class);
+                                Toast.makeText(profileScreenBusiness.this, "Profile updated", Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
                         });
                     }else{
-                        Toast.makeText(ProfileScreenBusiness.this,"Cant Save new data",Toast.LENGTH_LONG).show();
+                        Toast.makeText(profileScreenBusiness.this,"Cant Save new data",Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(ProfileScreenBusiness.this,"Cant Save new data",Toast.LENGTH_LONG).show();
+                    Toast.makeText(profileScreenBusiness.this,"Cant Save new data",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -170,6 +176,26 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+
+    @Override
+    public void saveDescription(String Description, String businessID, String userID,String date) {
+        String dateforsearch = date.replace("/","_");
+        DatabaseReference businessRef = FirebaseDatabase.getInstance().getReference("BusinessUsers/"+businessID + "/BookedTreatment/"+dateforsearch);
+        businessRef.child("description").setValue(Description, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(profileScreenBusiness.this,"Description saved",Toast.LENGTH_LONG).show();
+            }
+        });
+        DatabaseReference privateRef = FirebaseDatabase.getInstance().getReference("PrivateUsers/"+userID+"/BookedTreatment/"+dateforsearch);
+        privateRef.child("description").setValue(Description, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(profileScreenBusiness.this,"Description saved in Private user",Toast.LENGTH_LONG).show();
             }
         });
     }

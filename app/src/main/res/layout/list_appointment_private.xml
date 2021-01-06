@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
+
+    <TextView
+        android:id="@+id/treatmentTime"
+        android:layout_width="115dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:text="treatmentTime"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/treatmentBusiness"
+        android:layout_width="113dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="15dp"
+        android:text="treatmentBusiness"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/treatmentPhone"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toEndOf="@+id/treatmentTime"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <TextView
+        android:id="@+id/treatmentPhone"
+        android:layout_width="94dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="16dp"
+        android:text="treatmentPhone"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/treatmentAddress"
+        android:layout_width="114dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="treatmentAdress"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/treatmentDescription"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/treatmentTime" />
+
+    <TextView
+        android:id="@+id/treatmentDescription"
+        android:layout_width="240dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="20dp"
+        android:text="treatmentDescription"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/treatmentBusiness" />
+
+    <Button
+        android:id="@+id/cancelApp"
+        android:layout_width="118dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="cancel"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/treatmentAddress" />
+
+    <Button
+        android:id="@+id/privateReview"
+        android:layout_width="97dp"
+        android:layout_height="42dp"
+        android:text="Review"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@+id/cancelApp"
+        app:layout_constraintTop_toBottomOf="@+id/treatmentDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>

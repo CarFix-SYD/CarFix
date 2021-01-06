@@ -2,9 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 
 public class searchResults extends AppCompatActivity implements View.OnClickListener {
     private ListView listViewBusiness;
-    private businessAdapter adapter;
+    private businessAdapterForUserResultSearch adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +27,7 @@ public class searchResults extends AppCompatActivity implements View.OnClickList
         public void populateListView() {
             listViewBusiness = (ListView) findViewById(R.id.listOfBusiness);
             ArrayList<businessUser> list = getIntent().getParcelableArrayListExtra("businessList");
-            adapter = new businessAdapter(this, list);
+            adapter = new businessAdapterForUserResultSearch(this, list);
             listViewBusiness.setAdapter(adapter);
             listViewBusiness.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
