@@ -77,7 +77,7 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                 list.addAll(Arrays.asList(getResources().getStringArray(R.array.Appointment_time))); // add the hours list again
                 myAdapter.notifyDataSetChanged();//notify thr adapter of the spinner
                 problematicHours.clear();// clear previous problematic hours
-                date = (dayOfMonth > 10 ? dayOfMonth:"0"+dayOfMonth) + "/" + ((month+1) < 10 ? "0"+(month+1):(month+1)) + "/" + year;
+                date = (dayOfMonth >= 10 ? dayOfMonth:"0"+dayOfMonth) + "/" + ((month+1) < 10 ? "0"+(month+1):(month+1)) + "/" + year;
 
                 dRefBusiness.child(BusinessId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -87,8 +87,7 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
                             for (DataSnapshot child : snapshot.child("BookedTreatment").getChildren()) {
                                 if (child.exists()) {
                                    String key= child.getKey();
-                                    s+=child.child("key").child("date").getValue().toString();
-
+                                   s+=child.child("date").getValue().toString();
                                 }
                             }
 
@@ -147,81 +146,29 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
 
         Appointment newP = new Appointment(toPush,userId,BusinessId);
         // we check if the private user has previous schedule if there is save it in P schedule
-        dRefPrivate.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
-                    Pshecuale = snapshot.child("BookedTreatment").getValue().toString().trim();
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        // add listener to the business place in the database
-        if(start) {
-            dRefBusiness.child(BusinessId).addListenerForSingleValueEvent(new ValueEventListener() {
+        // add to all the places in the database
+        dRefBusiness.child(BusinessId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    //check if Business user have "BookedTreatment" in database
-                    if (snapshot.exists() && snapshot.child("BookedTreatment").exists()) {
-
-
-                        String businessScheduale = snapshot.child("BookedTreatment").getValue().toString().trim();
-                        //if exist then split it to make array to ckeck inside
-                        if (!businessScheduale.isEmpty()) {
-                            // if not push it to the databse of the business user
-                            Map<String, Object> values = new HashMap<>();
-                            values.put(newP.getDate().replace("/","_"), newP);
-
-                            if (!values.isEmpty()) {
-                                // if the business user have "BookedTreatment" in database save the previous with the new one
-                                dRefBusiness.child(BusinessId).child("BookedTreatment/"+key).updateChildren(values, new DatabaseReference.CompletionListener() {
-                                    @Override
-                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-
-                                        dRefPrivate.child(userId).child("BookedTreatment/"+key).updateChildren(values, new DatabaseReference.CompletionListener() {
-                                            @Override
-                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                                Toast.makeText(BookTreatment.this, "Treatment saved in date " + toPush, Toast.LENGTH_LONG).show();
-                                                Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
-                                                startActivity(intent);
-                                            }
-                                                    });
-
-                                    }
-                                });
-                            }
-
-                        }
-
-                        //the else statement is for thr case when the business user dont have previous schedule,
-                        // and here it add the key of "BookedTreatment" to the database and the date, for both users
-                    } else {
-                        dRefBusiness.child(BusinessId).child("BookedTreatment/"+key+"/").setValue(newP).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    //save to business user database
+                    dRefBusiness.child(BusinessId).child("BookedTreatment/"+key+"/").setValue(newP, new DatabaseReference.CompletionListener() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
-                                }
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
                             }
                         });
-
-                        //here we save the previous treatments and the new one in the private user database
-                        dRefPrivate.child(userId).child("BookedTreatment/"+key+"/").setValue(newP).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    //save to private user database
+                    dRefPrivate.child(userId).child("BookedTreatment/"+key+"/").setValue(newP, new DatabaseReference.CompletionListener() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                 Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
                                 startActivity(intent);
+
                             }
                         });
-
-                    }
+                    //save to appointment in the database
                     dRefAppoint.child(key).setValue(newP, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -239,7 +186,7 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
 
             });
         }
-    }
+
 
 
 

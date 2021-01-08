@@ -221,31 +221,14 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
 
                                     }
                                 });
-
                             }
-
                     }
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        /*}).child("description").setValue(Description, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(ProfileScreenBusiness.this,"Description saved",Toast.LENGTH_LONG).show();
-            }
-        });
-        DatabaseReference privateRef = FirebaseDatabase.getInstance().getReference("PrivateUsers/"+userID+"/BookedTreatment/"+dateforsearch);
-        privateRef.child("description").setValue(Description, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(ProfileScreenBusiness.this,"Description saved in Private user",Toast.LENGTH_LONG).show();
-            }
-        });*/
         });
     }
 }
