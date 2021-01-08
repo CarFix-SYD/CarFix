@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,7 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class profileScreenPrivate extends AppCompatActivity implements View.OnClickListener, changePasswordDialog.ExampleDialogListener,leaveReviewDialog.leaveReivewInterface {
+public class ProfileScreenPrivate extends AppCompatActivity implements View.OnClickListener, changePasswordDialog.ExampleDialogListener,leaveReviewDialog.leaveReivewInterface {
 
     public Button editProfile;
     public TextView userNanme;
@@ -44,9 +45,9 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
     public FirebaseUser currentUser;
     public String RegisterdID;
     private AlertDialog alertDialog = null;
-    public ImageButton settings, search;
+    public ImageButton settings, search,logout;
 
-    private ListView listViewAppointemnts;
+    private ListView listViewAppointments;
     private appointmentAdapterPrivate adapter;
 
     public DatabaseReference businessRef;
@@ -57,22 +58,26 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_screen);
 
+        //FireBase variables
         dRef = FirebaseDatabase.getInstance().getReference("PrivateUsers");
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         RegisterdID = currentUser.getUid();
+
         //the path to the user in firebase
         Path = FirebaseDatabase.getInstance().getReference("/PrivateUsers/" + RegisterdID).toString();
 
-
+        // Text view with Hello + user name
         userNanme = (TextView) findViewById(R.id.HelloUser);
         userNanme.setText("Hello " + currentUser.getEmail().split("@")[0]);
 
+        //search button
         search = (ImageButton) findViewById(R.id.Search);
         search.setOnClickListener(this);
 
         editProfile = (Button) findViewById(R.id.editProfile);
         editProfile.setOnClickListener(this);
 
+        //button for changing the password
         settings = (ImageButton) findViewById(R.id.SettingButtonP);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,28 +86,62 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
             }
         });
 
-        populateListViewAppointemts();
+        //log out button
+        logout = (ImageButton) findViewById(R.id.privatelogout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+
+        populateListViewAppointments();//function for showing the list view in the private profile
     }
 
 
+    /**
+     * log out() - for logging out from the app, using dialog to make shore.
+     */
+    private void logout() {
+        AlertDialog questionLogOut = new AlertDialog.Builder(ProfileScreenPrivate.this).
+                setTitle("Do you want to log out?").
+                setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(ProfileScreenPrivate.this, LoginActivity.class));
+                        finish();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        closeContextMenu();
+            }
+        }).create();
+        questionLogOut.show();
+    }
 
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.editProfile:
-                Intent intent = new Intent(profileScreenPrivate.this, editPrivateUserProfile.class);
+                Intent intent = new Intent(ProfileScreenPrivate.this, EditPrivateUserProfile.class);
                 intent.putExtra("Path",Path);
                 startActivity(intent);
                 break;
             case R.id.Search:
-                Intent search = new Intent(profileScreenPrivate.this,searchScreen.class);
+                Intent search = new Intent(ProfileScreenPrivate.this,searchScreen.class);
                 search.putExtra("profileName",currentUser.getEmail().split("@")[0]);
                 startActivity(search);
                 break;
         }
     }
 
+    /**
+     * Dialog for changing the password for user
+     * @param password - the user password
+     */
     @Override
     public void applyTexts(String password) {
 
@@ -128,16 +167,16 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
                         userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                Intent intent = new Intent(profileScreenPrivate.this, profileScreenPrivate.class);
-                                Toast.makeText(profileScreenPrivate.this, "Profile updated", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(ProfileScreenPrivate.this, ProfileScreenPrivate.class);
+                                Toast.makeText(ProfileScreenPrivate.this, "Profile updated", Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
                         });
                     }else{
-                        Toast.makeText(profileScreenPrivate.this,"Cant Save new data",Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileScreenPrivate.this,"Cant Save new data",Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(profileScreenPrivate.this,"Cant Save new data",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProfileScreenPrivate.this,"Cant Save new data",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -149,8 +188,14 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
         });
     }
 
-    private void populateListViewAppointemts() {
-        listViewAppointemnts = (ListView) findViewById(R.id.listOfAppointments);
+    /**
+     * This function use for display the Appointments of every user
+     * Showing only the future Appointments, and make two buttons:
+     * *review: leave review for the treatment
+     * *cancel: to cancel the appointment
+     */
+    private void populateListViewAppointments() {
+        listViewAppointments = (ListView) findViewById(R.id.listOfAppointments);
         ArrayList<Appointment> list = new ArrayList<Appointment>();
         dRef.child(currentUser.getUid()).child("BookedTreatment").addValueEventListener(new ValueEventListener() {
             @Override
@@ -174,8 +219,8 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
 
                 }
 
-                adapter = new appointmentAdapterPrivate(profileScreenPrivate.this, list);
-                listViewAppointemnts.setAdapter(adapter);
+                adapter = new appointmentAdapterPrivate(ProfileScreenPrivate.this, list);
+                listViewAppointments.setAdapter(adapter);
 
             }
             @Override
@@ -187,12 +232,21 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
 
     }
 
-
+    /**
+     * Dialog for changing the Password
+     */
     public void openDialog() {
         changePasswordDialog exampleDialog = new changePasswordDialog();
         exampleDialog.show(getSupportFragmentManager(), "example dialog");
     }
-    //to save the review to the Business
+
+    /**
+     * Function to save review from private user to business.
+     * @param review - String with the review
+     * @param businessID - the ID of the business user in the DataBase
+     * @param userID - the ID of the private user in the DataBase
+     * @param reviewRating - the rating for the business from the private user
+     */
     @Override
     public void saveReivew(String review, String businessID, String userID,String reviewRating) {
             businessRef = FirebaseDatabase.getInstance().getReference("BusinessUsers/"+businessID);
@@ -202,7 +256,7 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.child("reviews/" + userID).exists()) {
-                        Toast.makeText(profileScreenPrivate.this, "You cant leave review again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileScreenPrivate.this, "You cant leave review again", Toast.LENGTH_LONG).show();
                     } else {
                         if (snapshot.child("reviews").exists()) {
                             businessRef.child("reviews/" + userID).setValue(review +", the rating is:"+ reviewRating).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -219,7 +273,7 @@ public class profileScreenPrivate extends AppCompatActivity implements View.OnCl
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     businessRef.child("AVGrating").setValue(reviewRating);
-                                    Toast.makeText(profileScreenPrivate.this, "Your review have been saved", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ProfileScreenPrivate.this, "Your review have been saved", Toast.LENGTH_LONG).show();
                                 }
                             });
                         }

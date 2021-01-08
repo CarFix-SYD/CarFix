@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profileScreenPrivate">
+    tools:context=".ProfileScreenPrivate">
 
     <TextView
         android:id="@+id/HelloUser"
-        android:layout_width="331dp"
-        android:layout_height="73dp"
+        android:layout_width="301dp"
+        android:layout_height="67dp"
         android:layout_marginTop="4dp"
         android:lineSpacingExtra="14sp"
         android:text="Hello user"
@@ -19,7 +19,7 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,6 +73,25 @@
         app:srcCompat="@drawable/ic_action_name"
         tools:ignore="MissingConstraints" />
 
+    <ImageButton
+        android:id="@+id/privatelogout"
+        android:layout_width="59dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="128dp"
+        android:adjustViewBounds="false"
+        android:background="#00090909"
+        android:backgroundTint="#00FFFFFF"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:foregroundTint="#07121111"
+        android:tint="#040303"
+        app:layout_constraintBottom_toTopOf="@+id/listOfAppointments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/HelloUser"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="247dp"
@@ -93,9 +112,10 @@
         android:layout_marginTop="25dp"
         app:layout_constraintBottom_toTopOf="@+id/Search"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

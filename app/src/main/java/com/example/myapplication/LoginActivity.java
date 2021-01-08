@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
  * check if the user is in firebase database and move him to the right activity to his type and profile
  */
 
-public class loginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView register,forgotPassword;//textViews in the bottom that direct to those activities
     private EditText editTextEmail,EditTextPassword; // edit texts to enter user name and password
@@ -48,7 +48,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         mAuth = FirebaseAuth.getInstance();
 
         register = (TextView)findViewById(R.id.register);
-        register.setOnClickListener(loginActivity.this);
+        register.setOnClickListener(LoginActivity.this);
         forgotPassword =(TextView) findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
 
@@ -64,7 +64,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.register:
-                startActivity(new Intent(this, registerUser.class));
+                startActivity(new Intent(this, RegisterUser.class));
                 break;
 
             case R.id.loginButton:
@@ -125,13 +125,13 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                             if (snapshot.exists()) {
                                 String userType = snapshot.child("type").getValue().toString();
                                 if (userType.equals("BusinessUser")) {
-                                    Intent intentBusiness = new Intent(loginActivity.this, profileScreenBusiness.class);
+                                    Intent intentBusiness = new Intent(LoginActivity.this, ProfileScreenBusiness.class);
                                     intentBusiness.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intentBusiness);
                                     progressBar.setVisibility(View.GONE);
                                     return;
                                 } else {
-                                    Toast.makeText(loginActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
                                     return;
                                 }
@@ -155,14 +155,14 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                             if (snapshot.exists()) {
                                 String userType = snapshot.child("type").getValue().toString();
                                 if (userType.equals("PrivateUser")) {
-                                    Intent intentPrivate = new Intent(loginActivity.this, profileScreenPrivate.class);
+                                    Intent intentPrivate = new Intent(LoginActivity.this, ProfileScreenPrivate.class);
                                     intentPrivate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intentPrivate);
                                     progressBar.setVisibility(View.GONE);
                                     return;
 
                                 } else {
-                                    Toast.makeText(loginActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
                                     return;
                                 }
@@ -178,7 +178,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
 
                 }else{
                     // if login is failed make toast and stay in the same activity
-                    Toast.makeText(loginActivity.this,"Failed to login",Toast.LENGTH_LONG).show();;
+                    Toast.makeText(LoginActivity.this,"Failed to login",Toast.LENGTH_LONG).show();;
                     progressBar.setVisibility(View.GONE);
                     return;
                 }

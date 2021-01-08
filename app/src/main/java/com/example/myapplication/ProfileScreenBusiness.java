@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.protobuf.StringValue;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +34,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class profileScreenBusiness extends AppCompatActivity implements View.OnClickListener, changePasswordDialog.ExampleDialogListener,addDescriptionBsuinessDialog.addDescriptionInterface{
+public class ProfileScreenBusiness extends AppCompatActivity implements View.OnClickListener, changePasswordDialog.ExampleDialogListener,addDescriptionBsuinessDialog.addDescriptionInterface{
     public TextView helloUser;
     public Button editProfile;
     public ImageButton settings;
@@ -86,7 +89,6 @@ public class profileScreenBusiness extends AppCompatActivity implements View.OnC
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren()) {
-
                     String appDate = data.child("date").getValue().toString().trim();
                     String appBusinessID = data.child("businessID").getValue().toString().trim();
                     String appPrivateID = data.child("privateID").getValue().toString().trim();
@@ -104,7 +106,7 @@ public class profileScreenBusiness extends AppCompatActivity implements View.OnC
 
                 }
 
-                adapter = new appointmentAdapterBusiness(profileScreenBusiness.this, list);
+                adapter = new appointmentAdapterBusiness(ProfileScreenBusiness.this, list);
                 TreatmentList.setAdapter(adapter);
 
             }
@@ -159,16 +161,16 @@ public class profileScreenBusiness extends AppCompatActivity implements View.OnC
                         userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                Intent intent = new Intent(profileScreenBusiness.this, profileScreenBusiness.class);
-                                Toast.makeText(profileScreenBusiness.this, "Profile updated", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(ProfileScreenBusiness.this, ProfileScreenBusiness.class);
+                                Toast.makeText(ProfileScreenBusiness.this, "Profile updated", Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
                         });
                     }else{
-                        Toast.makeText(profileScreenBusiness.this,"Cant Save new data",Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileScreenBusiness.this,"Cant Save new data",Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(profileScreenBusiness.this,"Cant Save new data",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProfileScreenBusiness.this,"Cant Save new data",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -180,23 +182,70 @@ public class profileScreenBusiness extends AppCompatActivity implements View.OnC
         });
     }
 
-
+    /**
+     * this function use for saving the description in both users and app in the databse
+     * @param Description - the treatment description
+     * @param businessID - the business ID
+     * @param userID - the user ID
+     * @param date - the date of the treatment
+     */
     @Override
     public void saveDescription(String Description, String businessID, String userID,String date) {
-        String dateforsearch = date.replace("/","_");
-        DatabaseReference businessRef = FirebaseDatabase.getInstance().getReference("BusinessUsers/"+businessID + "/BookedTreatment/"+dateforsearch);
-        businessRef.child("description").setValue(Description, new DatabaseReference.CompletionListener() {
+        DatabaseReference businessRef = FirebaseDatabase.getInstance().getReference("BusinessUsers/"+businessID + "/BookedTreatment/");
+        DatabaseReference privateRef = FirebaseDatabase.getInstance().getReference("PrivateUsers/"+userID + "/BookedTreatment/");
+        DatabaseReference appRef = FirebaseDatabase.getInstance().getReference("Appointments/");
+        businessRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String keyTreatment = "";
+                if (snapshot.exists()) {
+                    for (DataSnapshot treatmentKey : snapshot.getChildren()) {
+                        if(treatmentKey.child("date").getValue().toString().equals(date) && treatmentKey.child("businessID").getValue().toString().equals(businessID) && treatmentKey.child("privateID").getValue().toString().equals(userID)){
+                                keyTreatment = treatmentKey.getKey();
+                                Log.i("Here is the app key",keyTreatment);
+                                businessRef.child(keyTreatment).child("description").setValue(Description, new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                                    }
+                                });
+                                privateRef.child(keyTreatment).child("description").setValue(Description, new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                                    }
+                                });
+                                appRef.child(keyTreatment).child("description").setValue(Description, new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                                    }
+                                });
+
+                            }
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        /*}).child("description").setValue(Description, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(profileScreenBusiness.this,"Description saved",Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileScreenBusiness.this,"Description saved",Toast.LENGTH_LONG).show();
             }
         });
         DatabaseReference privateRef = FirebaseDatabase.getInstance().getReference("PrivateUsers/"+userID+"/BookedTreatment/"+dateforsearch);
         privateRef.child("description").setValue(Description, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(profileScreenBusiness.this,"Description saved in Private user",Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileScreenBusiness.this,"Description saved in Private user",Toast.LENGTH_LONG).show();
             }
+        });*/
         });
     }
 }

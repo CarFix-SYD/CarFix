@@ -29,10 +29,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The class bookTreatment is used to book treatments in business and private user database,
+ * The class BookTreatment is used to book treatments in business and private user database,
  * get the previous information from both and check the time available.
  */
-public class bookTreatment extends AppCompatActivity implements View.OnClickListener{
+public class BookTreatment extends AppCompatActivity implements View.OnClickListener{
 
     public CalendarView currentCalandar;
     public String date,time;
@@ -41,8 +41,12 @@ public class bookTreatment extends AppCompatActivity implements View.OnClickList
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     public DatabaseReference dRefBusiness = database.getReference("BusinessUsers");
     public DatabaseReference dRefPrivate = database.getReference("PrivateUsers");
+    public DatabaseReference dRefAppoint = database.getReference("Appointments");
+
     public String BusinessId,userId ;
     public ArrayList<String> problematicHours = new ArrayList<String>();
+
+
 
     public String Pshecuale = "";
 
@@ -81,8 +85,10 @@ public class bookTreatment extends AppCompatActivity implements View.OnClickList
                         if(snapshot.exists()&&snapshot.child("BookedTreatment").exists()) {
                             String s = "";
                             for (DataSnapshot child : snapshot.child("BookedTreatment").getChildren()) {
-                                if (child.exists()&&child.exists()) {
-                                   s += child.getKey().replace("_","/");
+                                if (child.exists()) {
+                                   String key= child.getKey();
+                                    s+=child.child("key").child("date").getValue().toString();
+
                                 }
                             }
 
@@ -137,6 +143,7 @@ public class bookTreatment extends AppCompatActivity implements View.OnClickList
         String spinnerselection = BookTime.getSelectedItem().toString().trim();
         String toPush = date + "," + spinnerselection + "e";
         Boolean start = true;
+        String key = dRefBusiness.push().getKey();
 
         Appointment newP = new Appointment(toPush,userId,BusinessId);
         // we check if the private user has previous schedule if there is save it in P schedule
@@ -173,15 +180,15 @@ public class bookTreatment extends AppCompatActivity implements View.OnClickList
 
                             if (!values.isEmpty()) {
                                 // if the business user have "BookedTreatment" in database save the previous with the new one
-                                dRefBusiness.child(BusinessId).child("BookedTreatment").updateChildren(values, new DatabaseReference.CompletionListener() {
+                                dRefBusiness.child(BusinessId).child("BookedTreatment/"+key).updateChildren(values, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
 
-                                        dRefPrivate.child(userId).child("BookedTreatment").updateChildren(values, new DatabaseReference.CompletionListener() {
+                                        dRefPrivate.child(userId).child("BookedTreatment/"+key).updateChildren(values, new DatabaseReference.CompletionListener() {
                                             @Override
                                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                                Toast.makeText(bookTreatment.this, "Treatment saved in date " + toPush, Toast.LENGTH_LONG).show();
-                                                Intent intent = new Intent(bookTreatment.this, profileScreenPrivate.class);
+                                                Toast.makeText(BookTreatment.this, "Treatment saved in date " + toPush, Toast.LENGTH_LONG).show();
+                                                Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
                                                 startActivity(intent);
                                             }
                                                     });
@@ -195,26 +202,32 @@ public class bookTreatment extends AppCompatActivity implements View.OnClickList
                         //the else statement is for thr case when the business user dont have previous schedule,
                         // and here it add the key of "BookedTreatment" to the database and the date, for both users
                     } else {
-                        dRefBusiness.child(BusinessId).child("BookedTreatment/"+newP.getDate().replace("/","_")).setValue(newP).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        dRefBusiness.child(BusinessId).child("BookedTreatment/"+key+"/").setValue(newP).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(bookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
+                                    Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
 
                         //here we save the previous treatments and the new one in the private user database
-                        dRefPrivate.child(userId).child("BookedTreatment/"+newP.getDate().replace("/","_")).setValue(newP).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        dRefPrivate.child(userId).child("BookedTreatment/"+key+"/").setValue(newP).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(bookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(bookTreatment.this, profileScreenPrivate.class);
+                                Toast.makeText(BookTreatment.this, "Treatment saved in date "+toPush , Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(BookTreatment.this, ProfileScreenPrivate.class);
                                 startActivity(intent);
                             }
                         });
 
                     }
+                    dRefAppoint.child(key).setValue(newP, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                        }
+                    });
 
                 }
 

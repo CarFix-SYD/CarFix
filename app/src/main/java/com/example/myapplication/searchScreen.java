@@ -73,7 +73,7 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.UserProfile:
-                startActivity(new Intent(this, profileScreenPrivate.class));
+                startActivity(new Intent(this, ProfileScreenPrivate.class));
                 break;
             case R.id.searchButton:
                 SearchTreatment();

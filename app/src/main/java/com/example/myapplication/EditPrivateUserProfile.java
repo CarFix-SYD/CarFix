@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class editPrivateUserProfile extends AppCompatActivity implements View.OnClickListener {
+public class EditPrivateUserProfile extends AppCompatActivity implements View.OnClickListener {
 
     public EditText editEmail,editPassword,editCarNumber,editCarYear;
     public Spinner CarType;
@@ -121,9 +121,9 @@ public class editPrivateUserProfile extends AppCompatActivity implements View.On
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()) {
-                                    Toast.makeText(editPrivateUserProfile.this, editEmail.getText().toString().trim(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(EditPrivateUserProfile.this, editEmail.getText().toString().trim(), Toast.LENGTH_LONG).show();
                                 }else {
-                                    Toast.makeText(editPrivateUserProfile.this, "dont change email", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(EditPrivateUserProfile.this, "dont change email", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -131,21 +131,21 @@ public class editPrivateUserProfile extends AppCompatActivity implements View.On
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()) {
-                                    Toast.makeText(editPrivateUserProfile.this, editPassword.getText().toString().trim(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(EditPrivateUserProfile.this, editPassword.getText().toString().trim(), Toast.LENGTH_LONG).show();
                                 }else {
-                                    Toast.makeText(editPrivateUserProfile.this, "dont change password", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(EditPrivateUserProfile.this, "dont change password", Toast.LENGTH_LONG).show();
                                 }
                             }
                         }); userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                Intent intent = new Intent(editPrivateUserProfile.this, profileScreenPrivate.class);
-                                Toast.makeText(editPrivateUserProfile.this, "Profile updated", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(EditPrivateUserProfile.this, ProfileScreenPrivate.class);
+                                Toast.makeText(EditPrivateUserProfile.this, "Profile updated", Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
                         });
                     } else {
-                        Toast.makeText(editPrivateUserProfile.this, "Cant Save new data", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditPrivateUserProfile.this, "Cant Save new data", Toast.LENGTH_LONG).show();
                     }
                 }
 

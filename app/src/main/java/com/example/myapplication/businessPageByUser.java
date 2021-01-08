@@ -321,7 +321,7 @@ public class businessPageByUser extends AppCompatActivity implements View.OnClic
                 changeBusinessProfile();
                 break;
             case R.id.BOOKTREATMENT:
-                Intent intent = new Intent(this, bookTreatment.class);
+                Intent intent = new Intent(this, com.example.myapplication.BookTreatment.class);
                 intent.putExtra("BID",BusinessID);
                 startActivity(intent);
                 break;
@@ -359,7 +359,7 @@ public class businessPageByUser extends AppCompatActivity implements View.OnClic
                         userRef.child(identifier).updateChildren(values, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                Intent intent = new Intent(businessPageByUser.this, profileScreenBusiness.class);
+                                Intent intent = new Intent(businessPageByUser.this, ProfileScreenBusiness.class);
                                 Toast.makeText(businessPageByUser.this, "Profile updated", Toast.LENGTH_LONG).show();
                                 startActivity(intent);
                             }
