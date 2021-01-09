@@ -25,48 +25,48 @@
 
     <ImageButton
         android:id="@+id/Search"
-        android:layout_width="132dp"
-        android:layout_height="131dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="98dp"
+        android:layout_height="80dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
         android:scaleType="centerInside"
         android:scrollbarSize="24dp"
         android:text="Search"
         android:tint="#000C0C0C"
-        app:layout_constraintBottom_toTopOf="@+id/editProfile"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/listOfAppointments"
+        app:layout_constraintVertical_bias="0.869"
         app:srcCompat="@drawable/_2_removebg_preview"
         tools:ignore="MissingConstraints" />
 
+
     <Button
         android:id="@+id/editProfile"
-        android:layout_width="409dp"
-        android:layout_height="55dp"
-        android:background="?attr/colorAccent"
+        android:layout_width="169dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button"
         android:text="Edit profile"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBottom_toTopOf="@+id/listOfAppointments"
+        app:layout_constraintEnd_toStartOf="@+id/History"
+        app:layout_constraintHorizontal_bias="0.711"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/HelloUser" />
 
     <ImageButton
         android:id="@+id/SettingButtonP"
         android:layout_width="50dp"
         android:layout_height="47dp"
-        android:background="#03FFFFFF"
+        android:layout_marginTop="16dp"
         android:tint="#0C0C0C"
         app:layout_constraintBottom_toTopOf="@+id/HelloBusinessUser"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.005"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -88,34 +88,36 @@
         android:tint="#040303"
         app:layout_constraintBottom_toTopOf="@+id/listOfAppointments"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/HelloUser"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="247dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="32dp"
-        android:background="?attr/colorAccent"
+        android:id="@+id/History"
+        android:layout_width="169dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button"
+        android:shape="rectangle"
         android:text="Watch history"
         android:textColor="#FAF9F9"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/listOfAppointments"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HelloUser" />
 
     <ListView
         android:id="@+id/listOfAppointments"
-        android:layout_width="410dp"
-        android:layout_height="259dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/Search"
+        android:layout_width="398dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="144dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/HelloUser" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,27 +23,28 @@
 
     <Button
         android:id="@+id/editBusinessUser"
-        android:layout_width="206dp"
-        android:layout_height="52dp"
+        android:layout_width="174dp"
+        android:layout_height="38dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="205dp"
         android:layout_weight="1"
-        android:background="?attr/colorAccent"
+        android:background="@drawable/button"
         android:text="Edit Business profile"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/treatmenthistory"
+        app:layout_constraintEnd_toStartOf="@+id/treatmenthistory"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TreatmentListView"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/treatmenthistory"
-        android:layout_width="204dp"
-        android:layout_height="52dp"
+        android:layout_width="174dp"
+        android:layout_height="38dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
-        android:background="?attr/colorAccent"
+        android:background="@drawable/button"
         android:text="treatment history"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FFFFFF"
@@ -51,6 +52,8 @@
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TreatmentListView"
+        app:layout_constraintVertical_bias="0.529"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
@@ -69,7 +72,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/Businesslogout"
         android:layout_width="59dp"
         android:layout_height="57dp"
         android:adjustViewBounds="false"

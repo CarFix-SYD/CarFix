@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class EditPrivateUserProfile extends AppCompatActivity implements View.On
     public EditText editEmail,editPassword,editCarNumber,editCarYear;
     public Spinner CarType;
     public Button Save;
+    public ImageButton  Back_button;
 
 
     @Override
@@ -42,8 +44,8 @@ public class EditPrivateUserProfile extends AppCompatActivity implements View.On
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();
 
-
-
+        Back_button = (ImageButton) findViewById(R.id.PrivateEditBack);
+        Back_button.setOnClickListener(this);
 
         editEmail = findViewById(R.id.EDITEMAILPRIVATE);
         editPassword = findViewById(R.id.EDITPASSWORDPRIVATE);
@@ -93,6 +95,10 @@ public class EditPrivateUserProfile extends AppCompatActivity implements View.On
         switch(v.getId()){
             case R.id.saveEditPrivateProfile:
                 changePrivateProfile();
+                break;
+            case R.id.PrivateEditBack:
+                Intent Backintent = new Intent(this, ProfileScreenPrivate.class);
+                startActivity(Backintent);
                 break;
         }
     }
