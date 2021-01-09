@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,7 +38,7 @@ import java.util.Map;
 public class ProfileScreenBusiness extends AppCompatActivity implements View.OnClickListener, changePasswordDialog.ExampleDialogListener,addDescriptionBsuinessDialog.addDescriptionInterface{
     public TextView helloUser;
     public Button editProfile;
-    public ImageButton settings;
+    public ImageButton settings, logout;
     public FirebaseUser currentUser;
     public String RegisterdID;
     public String Path;
@@ -61,6 +62,7 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
         editProfile = (Button) findViewById(R.id.editBusinessUser);
         editProfile.setOnClickListener(this);
 
+
         settings = (ImageButton) findViewById(R.id.SettingButton);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +70,15 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
                 openDialog();
             }
         });
+
+        logout = (ImageButton) findViewById(R.id.Businesslogout);
+        logout.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                                          logout();
+                                      }
+        });
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();
@@ -78,6 +89,28 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
 
 
 
+    }
+
+    /**
+     * log out() - for logging out from the app, using dialog to make shore.
+     */
+    private void logout() {
+        AlertDialog questionLogOut = new AlertDialog.Builder(ProfileScreenBusiness.this).
+                setTitle("Do you want to log out?").
+                setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(ProfileScreenBusiness.this, LoginActivity.class));
+                        finish();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                closeContextMenu();
+            }
+        }).create();
+        questionLogOut.show();
     }
 
     private void populateListViewAppointments() {

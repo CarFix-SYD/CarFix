@@ -10,11 +10,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,9 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The class BookTreatment is used to book treatments in business and private user database,
@@ -42,6 +39,7 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
     public DatabaseReference dRefBusiness = database.getReference("BusinessUsers");
     public DatabaseReference dRefPrivate = database.getReference("PrivateUsers");
     public DatabaseReference dRefAppoint = database.getReference("Appointments");
+    public ImageButton backToBusinessProfile;
 
     public String BusinessId,userId ;
     public ArrayList<String> problematicHours = new ArrayList<String>();
@@ -54,6 +52,9 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_treatment);
+
+        backToBusinessProfile = (ImageButton) findViewById(R.id.ReturnTosearchList);
+        backToBusinessProfile.setOnClickListener(this);
 
         Intent intent = getIntent();
         BusinessId = intent.getStringExtra("BID");//get the Business id from the last screen
@@ -128,6 +129,10 @@ public class BookTreatment extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.BookInCalander:
                 saveDateAndTime();
+                break;
+            case R.id.ReturnTosearchList:
+                Intent BackToSearchintent = new Intent(this, searchScreen.class);
+                startActivity(BackToSearchintent);
                 break;
         }
     }

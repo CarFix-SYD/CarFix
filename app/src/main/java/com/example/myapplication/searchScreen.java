@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
     private TextView textViewProfileButton;
     private TextView profileBtn;
     private Button searchButton;
+    public ImageButton backToProfile;
 
     private DatabaseReference mDatabase;
 
@@ -38,6 +40,10 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
         //Need to add the name of the user to this text view
         textViewProfileButton = (TextView) findViewById(R.id.UserProfile);
         textViewProfileButton.setOnClickListener(this);
+
+        backToProfile = (ImageButton) findViewById(R.id.backToProfile);
+        backToProfile.setOnClickListener(this);
+
 
         kindOfTreatment = (Spinner) findViewById(R.id.kindOfTreat);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.KindOfBusiness));
@@ -77,6 +83,10 @@ public class searchScreen extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.searchButton:
                 SearchTreatment();
+                break;
+            case R.id.backToProfile:
+                Intent BackToSearchintent = new Intent(this, ProfileScreenPrivate.class);
+                startActivity(BackToSearchintent);
                 break;
 
         }

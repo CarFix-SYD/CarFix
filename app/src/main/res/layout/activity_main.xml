@@ -27,10 +27,9 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="206dp"
-        android:layout_height="66dp"
-        android:background="@color/design_default_color_surface"
-        android:backgroundTint="#E3C3A0"
+        android:layout_width="192dp"
+        android:layout_height="57dp"
+        android:background="@drawable/button3"
         android:text="Login"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -109,7 +108,7 @@
         android:background="#07FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/_car"
+        app:srcCompat="@drawable/__removebg_preview"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="-1dp" />
 

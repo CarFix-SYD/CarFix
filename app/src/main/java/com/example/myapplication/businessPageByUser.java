@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -53,8 +54,8 @@ public class businessPageByUser extends AppCompatActivity implements View.OnClic
     public TextView email, businessName,businessAddress,businessPhone,businessKind, businessCity;
     public String Semail, SbusinessName,SbusinessAddress,SbusinessPhone,SbusinessKind, SCity, ScarsToTreat;
     public Spinner kindOfBusiness,businessCitySpinner;
-    public Button saveChanges;
-    private Button carsInBusinessButton;
+    public Button saveChanges, carsInBusinessButton;
+    public ImageButton Back_Button, Private_Back_Button;
     private String[] listOfCars;
     private boolean[] checkCars;
     private ArrayList<Integer> carsBussines;
@@ -163,6 +164,9 @@ public class businessPageByUser extends AppCompatActivity implements View.OnClic
 
         saveChanges = (Button) findViewById(R.id.editBusinessProfileSave);
         saveChanges.setOnClickListener(this);
+
+        Back_Button = (ImageButton) findViewById(R.id.BusinessEditBack);
+        Back_Button.setOnClickListener(this);
 
         carsInBusinessButton = (Button) findViewById(R.id.editBusinessCarsToTreat);
         carsInBusinessButton.setOnClickListener(this);
@@ -285,6 +289,9 @@ public class businessPageByUser extends AppCompatActivity implements View.OnClic
         ImageFromPrivate = findViewById(R.id.imageViewFromPrivate);
         ImageFromPrivate.setImageURI(selectedImage);
 
+        Private_Back_Button = (ImageButton) findViewById(R.id.backtosearchresult);
+        Private_Back_Button.setOnClickListener(this);
+
         businessName = (TextView)findViewById(R.id.textBN);
         businessName.setText(SbusinessName);
 
@@ -321,9 +328,17 @@ public class businessPageByUser extends AppCompatActivity implements View.OnClic
                 changeBusinessProfile();
                 break;
             case R.id.BOOKTREATMENT:
-                Intent intent = new Intent(this, com.example.myapplication.BookTreatment.class);
+                Intent intent = new Intent(this, BookTreatment.class);
                 intent.putExtra("BID",BusinessID);
                 startActivity(intent);
+                break;
+            case R.id.BusinessEditBack:
+                Intent Backintent = new Intent(this, ProfileScreenBusiness.class);
+                startActivity(Backintent);
+                break;
+            case R.id.backtosearchresult:
+                Intent PrivateBackintent = new Intent(this, searchResults.class);
+                startActivity(PrivateBackintent);
                 break;
         }
     }

@@ -2,7 +2,9 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView;
@@ -14,12 +16,17 @@ import java.util.ArrayList;
 public class searchResults extends AppCompatActivity implements View.OnClickListener {
     private ListView listViewBusiness;
     private businessAdapterForUserResultSearch adapter;
+    public ImageButton bake_to_search;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
         populateListView();
+        bake_to_search = (ImageButton) findViewById(R.id.backtosearch);
+        bake_to_search.setOnClickListener(this);
+
 
 
     }
@@ -41,6 +48,12 @@ public class searchResults extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.backtosearch:
+                Intent BackToSearchintent = new Intent(this, searchScreen.class);
+                startActivity(BackToSearchintent);
+                break;
+        }
 
     }
 }

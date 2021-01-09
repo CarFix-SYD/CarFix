@@ -110,16 +110,16 @@
 
     <Button
         android:id="@+id/registerbutton"
-        android:layout_width="412dp"
-        android:layout_height="63dp"
+        android:layout_width="174dp"
+        android:layout_height="57dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:background="@drawable/button"
         android:text="Register"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/businessAddress"
         app:layout_constraintVertical_bias="1.0" />
@@ -189,12 +189,13 @@
 
     <Button
         android:id="@+id/CarsInBusiness"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="193dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button2"
         android:text="Choose car companies"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kindOfBusiness" />
 
