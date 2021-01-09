@@ -1,9 +1,15 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +17,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +31,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class appointmentAdapterPrivate extends BaseAdapter  {
 
@@ -115,8 +126,34 @@ public class appointmentAdapterPrivate extends BaseAdapter  {
                     openReviewDialog(selected.getBusinessID(), selected.getPrivateID(), textViewBusinessName.getText().toString());
                 }
             });
+
+            //Set notification button
+            createNotificationChannel();
+            Button setNotif = (Button) itemView.findViewById(R.id.setNotification);
+            setNotif.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,"Remonder Set!",Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(context,ReminderBroadcast.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+
+                    AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+                    try {
+                        //set the reminder notification 1 hour before appointment
+                        long timeToNotify =convertToMillis(selected.getDate()) - (1000* 3600);
+                        alarmManager.set(alarmManager.RTC_WAKEUP,timeToNotify,pendingIntent);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             return itemView;
     }
+
+
 
     public void deleteAppFromDB(String businessID,String userID,String date){
         DatabaseReference businessRef = FirebaseDatabase.getInstance().getReference("BusinessUsers/"+businessID + "/BookedTreatment/");
@@ -169,6 +206,29 @@ public class appointmentAdapterPrivate extends BaseAdapter  {
     public void openReviewDialog(String businessID,String userID,String businessName) {
         leaveReviewDialog reviewDialog = new leaveReviewDialog(businessID,userID,businessName);
         reviewDialog.show(((AppCompatActivity) context).getSupportFragmentManager(),"H");
+    }
+
+
+    public void createNotificationChannel(){
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "notifyTreatment";
+            String description = "Channel for treatment notify";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            NotificationChannel channel = new NotificationChannel("notifyTreatment",name,importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private long convertToMillis(String toString) throws ParseException {
+        String toConvertDate = toString.split("e")[0];
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy,HH:mm");
+        Date date = sdf.parse(toConvertDate);
+        return date.getTime();
     }
 
 

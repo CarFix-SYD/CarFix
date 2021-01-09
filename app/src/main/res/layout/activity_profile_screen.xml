@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/HelloUser"
-        android:layout_width="301dp"
-        android:layout_height="67dp"
+        android:layout_width="310dp"
+        android:layout_height="92dp"
         android:layout_marginTop="4dp"
         android:lineSpacingExtra="14sp"
         android:text="Hello user"
@@ -96,7 +96,7 @@
         android:id="@+id/button"
         android:layout_width="247dp"
         android:layout_height="56dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:background="?attr/colorAccent"
         android:text="Watch history"
         android:textColor="#FAF9F9"
@@ -107,8 +107,8 @@
 
     <ListView
         android:id="@+id/listOfAppointments"
-        android:layout_width="391dp"
-        android:layout_height="272dp"
+        android:layout_width="410dp"
+        android:layout_height="259dp"
         android:layout_marginTop="25dp"
         app:layout_constraintBottom_toTopOf="@+id/Search"
         app:layout_constraintEnd_toEndOf="parent"
