@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -80,20 +81,49 @@ public class appointmentAdapterPrivate extends BaseAdapter  {
         TextView textViewPhone = (TextView) itemView.findViewById(R.id.treatmentPhone);
         TextView textViewDescription = (TextView) itemView.findViewById(R.id.treatmentDescription);
         Appointment selected = appointments.get(position);
-            dref.child("BusinessUsers").child(selected.getBusinessID()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    textViewTime.setText(selected.getDate().replace("e", ""));
-                    textViewBusinessName.setText(snapshot.child("businessName").getValue().toString().trim());
-                    textViewAddress.setText(snapshot.child("address").getValue().toString().trim() + "," + snapshot.child("City").getValue().toString().trim());
-                    textViewPhone.setText(snapshot.child("PhoneNumber").getValue().toString().trim());
-                    textViewDescription.setText(selected.getDescription());
+        dref.child("BusinessUsers").child(selected.getBusinessID()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                textViewTime.setText(selected.getDate().replace("e", ""));
+                textViewBusinessName.setText(snapshot.child("businessName").getValue().toString().trim());
+                textViewAddress.setText(snapshot.child("address").getValue().toString().trim() + "," + snapshot.child("City").getValue().toString().trim());
+                textViewPhone.setText(snapshot.child("PhoneNumber").getValue().toString().trim());
+                textViewDescription.setText(selected.getDescription());
 
 
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {}
-            });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        //text view on click listener for calling to the garage.
+        textViewPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open dialog
+                AlertDialog questionCallPhone = new AlertDialog.Builder(context).
+                        setTitle("Do you want to move to dialer?").
+                        setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //set the number in the phone caller
+                                Intent intent = new Intent(Intent.ACTION_DIAL);
+                                intent.setData(Uri.parse("tel:" + textViewPhone.getText().toString()));
+                                context.startActivity(intent);
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        context.closeContextMenu();
+                    }
+                }).create();
+                questionCallPhone.show();
+            }
+
+
+        });
+
 
             //Cancel button for the app in the list view
             Button CancelApp = (Button) itemView.findViewById(R.id.cancelApp);
