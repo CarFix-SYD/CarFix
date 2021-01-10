@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ProfileScreenPrivate">
 
     <TextView
@@ -27,7 +28,6 @@
         android:id="@+id/Search"
         android:layout_width="98dp"
         android:layout_height="80dp"
-        android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
         android:scaleType="centerInside"
         android:scrollbarSize="24dp"
@@ -54,7 +54,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/listOfAppointments"
         app:layout_constraintEnd_toStartOf="@+id/privateHistory"
-        app:layout_constraintHorizontal_bias="0.711"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HelloUser" />
 
@@ -105,7 +105,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/listOfAppointments"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HelloUser" />
 
