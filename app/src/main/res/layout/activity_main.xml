@@ -5,7 +5,7 @@
     android:id="@+id/screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorButtonNormal"
+    android:background="@drawable/background"
     tools:context=".LoginActivity">
 
     <TextView
@@ -13,11 +13,13 @@
         android:layout_width="343dp"
         android:layout_height="95dp"
         android:fontFamily="sans-serif-black"
-        android:text="Welcome to CarFix"
+        android:shadowColor="#807070"
+        android:text="Welcome To CarFix"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
+        android:textIsSelectable="false"
         android:textSize="36sp"
         android:textStyle="bold"
         android:typeface="serif"
