@@ -65,7 +65,7 @@ public class resetPassword extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(resetPassword.this,"Check your Email",Toast.LENGTH_LONG).show();
+                    Toast.makeText(resetPassword.this,"A new password was sent to the Email",Toast.LENGTH_LONG).show();
                     progressbar.setVisibility(View.GONE);
                     startActivity(new Intent(resetPassword.this, LoginActivity.class));
 

@@ -10,12 +10,12 @@
     <TextView
         android:id="@+id/HelloBusinessUser"
         style="@style/DarkTealText"
-        android:layout_width="292dp"
-        android:layout_height="32dp"
+        android:layout_width="317dp"
+        android:layout_height="74dp"
         android:layout_marginTop="84dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.42"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,8 +92,8 @@
 
     <ListView
         android:id="@+id/TreatmentListView"
-        android:layout_width="373dp"
-        android:layout_height="447dp"
+        android:layout_width="370dp"
+        android:layout_height="401dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
