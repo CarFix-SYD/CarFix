@@ -215,7 +215,8 @@ public class ProfileScreenPrivate extends AppCompatActivity implements View.OnCl
                     String appDate = data.child("date").getValue().toString().trim();
                     String appBusinessID = data.child("businessID").getValue().toString().trim();
                     String appPrivateID = data.child("privateID").getValue().toString().trim();
-                    Appointment app = new Appointment(appDate,appPrivateID,appBusinessID);
+                    String description = data.child("description").getValue().toString().trim();
+                    Appointment app = new Appointment(appDate,appPrivateID,appBusinessID,description);
 
                     //check if the date is in the past if it is dont show it anymore
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy,HH:mm");

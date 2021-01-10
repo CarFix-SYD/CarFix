@@ -16,6 +16,14 @@ public class Appointment {
         this.description = "No description for now";
 
     }
+
+    public Appointment(String datetime,String PID,String BID,String description){
+        this.dateNtime = datetime;
+        this.PrivateID = PID;
+        this.BusinessID = BID;
+        this.description = description;
+
+    }
     public Appointment(){}
 
     public String getDescription(){
