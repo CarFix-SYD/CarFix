@@ -28,7 +28,7 @@
         android:id="@+id/Search"
         android:layout_width="98dp"
         android:layout_height="80dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#05FFFFFF"
         android:scaleType="centerInside"
         android:scrollbarSize="24dp"
         android:text="Search"
