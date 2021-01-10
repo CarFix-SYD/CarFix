@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class ProfileScreenBusiness extends AppCompatActivity implements View.OnClickListener, changePasswordDialog.ExampleDialogListener,addDescriptionBsuinessDialog.addDescriptionInterface{
     public TextView helloUser;
-    public Button editProfile;
+    public Button editProfile,treatmentHistory;
     public ImageButton settings, logout;
     public FirebaseUser currentUser;
     public String RegisterdID;
@@ -79,6 +79,14 @@ public class ProfileScreenBusiness extends AppCompatActivity implements View.OnC
                                       }
         });
 
+        treatmentHistory = (Button) findViewById(R.id.treatmenthistorybusiness);
+        treatmentHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileScreenBusiness.this,BusinessUserHistory.class);
+                startActivity(intent);
+            }
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();

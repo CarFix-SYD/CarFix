@@ -163,18 +163,26 @@ public class appointmentAdapterPrivate extends BaseAdapter  {
             setNotif.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context,"Remonder Set!",Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(context,ReminderBroadcast.class);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
-
-                    AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
                     try {
-                        //set the reminder notification 1 hour before appointment
-                        long timeToNotify =convertToMillis(selected.getDate()) - (1000* 3600);
-                        alarmManager.set(alarmManager.RTC_WAKEUP,timeToNotify,pendingIntent);
+                        if(convertToMillis(selected.getDate()) > System.currentTimeMillis()) {
+                        Toast.makeText(context,"Reminder Set!",Toast.LENGTH_LONG).show();
 
+                        Intent intent = new Intent(context,ReminderBroadcast.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+
+                        AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+                        try {
+                            //set the reminder notification 1 hour before appointment
+                                long timeToNotify = convertToMillis(selected.getDate()) - (1000 * 3600);
+                                alarmManager.set(alarmManager.RTC_WAKEUP, timeToNotify, pendingIntent);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        }else{
+                            Toast.makeText(context,"Cant set notification to past appointment",Toast.LENGTH_LONG).show();
+                        }
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

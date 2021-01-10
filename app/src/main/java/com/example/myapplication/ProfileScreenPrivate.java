@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class ProfileScreenPrivate extends AppCompatActivity implements View.OnClickListener, changePasswordDialog.ExampleDialogListener,leaveReviewDialog.leaveReivewInterface {
 
-    public Button editProfile;
+    public Button editProfile,privateHistoryButton;
     public TextView userNanme;
     public FirebaseAuth mAuth;
     public DatabaseReference dRef;
@@ -95,6 +95,16 @@ public class ProfileScreenPrivate extends AppCompatActivity implements View.OnCl
             }
         });
 
+        //Watch history pricate user
+        privateHistoryButton = (Button) findViewById(R.id.privateHistory);
+        privateHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileScreenPrivate.this,PrivateUserHistory.class);
+                startActivity(intent);
+
+            }
+        });
         populateListViewAppointments();//function for showing the list view in the private profile
     }
 

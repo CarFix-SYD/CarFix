@@ -32,13 +32,13 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/treatmenthistory"
+        app:layout_constraintEnd_toStartOf="@+id/treatmenthistorybusiness"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TreatmentListView"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/treatmenthistory"
+        android:id="@+id/treatmenthistorybusiness"
         android:layout_width="174dp"
         android:layout_height="38dp"
         android:layout_centerHorizontal="true"

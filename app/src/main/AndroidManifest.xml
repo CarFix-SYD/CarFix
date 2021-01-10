@@ -6,8 +6,7 @@
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".leaveReviewDialog"></activity>
+        <activity android:name=".BusinessUserHistory"></activity>
+        <activity android:name=".PrivateUserHistory" />
+        <activity android:name=".leaveReviewDialog" />
         <activity android:name=".BookTreatment" />
         <activity android:name=".businessPageByUser" />
         <activity android:name=".EditPrivateUserProfile" />
@@ -33,7 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".ReminderBroadcast"/>
+
+        <receiver android:name=".ReminderBroadcast" />
     </application>
 
 </manifest>
